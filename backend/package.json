@@ -1,0 +1,18 @@
+{
+  "name": "ds_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "GregKu",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "livescript": "^1.4.0"
+  },
+  "dependencies": {
+    "express": "^4.13.1"
+  }
+}
