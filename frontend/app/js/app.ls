@@ -1,5 +1,5 @@
-dispatchApp = angular.module \dispatchApp, []
+loginApp = angular.module \loginApp, []
 
-dispatchApp.controller \loginCtrl, [\$scope, ($scope) ->
-	$scope.test = "hello word!! Greg"
+loginApp.controller \loginCtrl, [\$scope, ($scope) ->
+	$scope.test = "hello world!! Greg"
 ]
