@@ -1,4 +1,21 @@
 @import "bootstrap";
 
-body {
+[class*="col-"] {
+	margin-bottom: 15px;
+}
+
+#joblist {
+	margin-top: 20px;
+}
+
+.modal-header {
+	min-height: 42px;
+
+	.close {
+		margin-top: -18px;
+
+		span {
+			font-size: 2em;
+		}
+	}
 }
