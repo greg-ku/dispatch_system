@@ -15,7 +15,8 @@
     "gulp-ls": "^2.4.0",
     "browser-sync": "^2.8.2",
     "gulp-ruby-sass": "^1.0.5",
-    "gulp-notify": "^2.2.0"
+    "gulp-notify": "^2.2.0",
+    "gulp-angular-templatecache": "^1.7.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

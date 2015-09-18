@@ -7,6 +7,7 @@ require! \gulp-if
 require! \gulp-uglify
 require! \gulp-ls
 require! \gulp-ruby-sass
+require! \gulp-angular-templatecache
 require! \gulp-notify
 require! \browser-sync
 
@@ -26,8 +27,10 @@ paths =
 		src: \bower_components/bootstrap-sass-official/assets/fonts/**/*.*
 		dest: \_public/fonts
 	html:
-		src: \app/*.html
+		src: \app/index.html
 		dest: \_public/
+		templateSrc: \app/partials/**/*.html
+		tmp: \tmp/templates.js
 	scripts:
 		src: \app/js/**/*.ls
 		dest: \_public/js
@@ -36,10 +39,17 @@ paths =
 		dir: \app/css
 		src: \app/css/style.scss
 		dest: \_public/css
+	tmp: \tmp
 
 gulp.task \html, ->
 	gulp.src paths.html.src
 		.pipe gulp.dest paths.html.dest
+		.pipe reload { stream: true }
+
+gulp.task \template, ->
+	gulp.src paths.html.templateSrc
+		.pipe gulpAngularTemplatecache!
+		.pipe gulp.dest paths.tmp
 		.pipe reload { stream: true }
 
 gulp.task \js-vendor, ->
@@ -50,8 +60,8 @@ gulp.task \js-vendor, ->
 		.pipe gulp.dest paths.scripts.vendorDest
 		.pipe reload { stream: true }
 
-gulp.task \js-app, ->
-	gulp.src paths.scripts.src
+gulp.task \js-app, [\template], ->
+	gulp.src [paths.scripts.src, paths.html.tmp]
 		.pipe gulpLs { bare: true }
 		.pipe gulpConcat builtNames.appJs
 		.pipe gulp.dest paths.scripts.dest
@@ -77,6 +87,6 @@ gulp.task \watch, [\build], ->
 		server:
 			baseDir: paths.outputDir
 
-	gulp.watch [paths.html.src, paths.scripts.src], [\build]
+	gulp.watch [paths.html.src, paths.html.templateSrc, paths.scripts.src, paths.css.src], [\build]
 
 gulp.task \build, [\html, \js-vendor, \js-app, \css, \icons]
