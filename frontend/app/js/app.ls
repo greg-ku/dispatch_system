@@ -6,8 +6,8 @@ dispatchApp.config [\$translateProvider, ($translateProvider) ->
     $translateProvider.useStaticFilesLoader do
         prefix: \/lang/
         suffix: \.json
-    # $translateProvider.useLocalStorage!
-    $translateProvider.preferredLanguage \en-US
+    preferLang = window.localStorage[\lang] || \en-US
+    $translateProvider.preferredLanguage preferLang
 ]
 
 dispatchApp.controller \dispatchCtrl, [\$scope, \$modal, ($scope, $modal) ->
@@ -48,7 +48,11 @@ dispatchApp.controller \languageCtrl, [\$scope, \$translate, \$modalInstance, \$
           value: \en-US
         * lang: "Traditional Chinese"
           value: \zh-TW
-    $scope.selectedLang = $scope.langs[0]
+
+    # set current language
+    $scope.selectedLang = $scope.langs[0] # default
+    if window.localStorage[\lang]?
+        $scope.langs.forEach (lang) -> $scope.selectedLang = lang if window.localStorage[\lang] == lang.value
 
     prefix = \/lang/
     suffix = \.json
@@ -60,6 +64,7 @@ dispatchApp.controller \languageCtrl, [\$scope, \$translate, \$modalInstance, \$
         $http.get prefix + $scope.langUsed + suffix
         .then (response) ->
             $translate.use $scope.langUsed
+            window.localStorage[\lang] = $scope.langUsed # store language
         , (response) ->
             # error handle
 ]

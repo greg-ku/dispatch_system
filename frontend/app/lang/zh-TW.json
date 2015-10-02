@@ -8,5 +8,9 @@
     "PAY": "薪水",
     "POSITION": "地點",
     "DATE": "時間",
-    "CONFIRM": "確認"
+    "CONFIRM": "確認",
+    "USERNAME": "名稱",
+    "PASSWORD": "密碼",
+    "CONFIRM_PW": "確認密碼",
+    "REMEMBER_ME": "記得我"
 }

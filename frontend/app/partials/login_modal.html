@@ -5,20 +5,20 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<input type="text" class="form-control" placeholder="Username">
+				<input type="text" class="form-control" placeholder="{{ 'USERNAME' | translate }}">
 			</div>
 			<div class="col-md-12">
-				<input type="password" class="form-control" placeholder="Password">
+				<input type="password" class="form-control" placeholder="{{ 'PASSWORD' | translate }}">
 			</div>
 			<div class="col-md-12">
 				<label>
 					<input type="checkbox">
-					Remember me
+					{{ "REMEMBER_ME" | translate }}
 				</label>
 			</div>
 		</div>
 	</div> <!-- container-fluid -->
 </div>
 <div class="modal-footer">
-	<button class="btn btn-default">Login</button>
+	<button class="btn btn-default">{{ "LOGIN" | translate }}</button>
 </div>

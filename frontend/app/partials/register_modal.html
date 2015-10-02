@@ -4,19 +4,19 @@
 <div class="modal-body">
 	<form>
 		<div class="form-group">
-			<label>Username</label>
-			<input type="text" class="form-control" placeholder="Username">
+			<label>{{ "USERNAME" | translate }}</label>
+			<input type="text" class="form-control" placeholder="{{ 'USERNAME' | translate }}">
 		</div>
 		<div class="form-group">
-			<label>Password</label>
-			<input type="password" class="form-control" placeholder="Password">
+			<label>{{ "PASSWORD" | translate }}</label>
+			<input type="password" class="form-control" placeholder="{{ 'PASSWORD' | translate }}">
 		</div>
 		<div class="form-group">
-			<label>{{ "CONFIRM" | translate }}</label>
+			<label>{{ "CONFIRM_PW" | translate }}</label>
 			<input type="password" class="form-control">
 		</div>
 	</div> <!-- container-fluid -->
 </div>
 <div class="modal-footer">
-	<button class="btn btn-default">Register</button>
+	<button class="btn btn-default">{{ "REGISTER" | translate }}</button>
 </div>

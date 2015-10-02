@@ -8,5 +8,9 @@
     "PAY": "Pay",
     "POSITION": "Position",
     "DATE": "Date",
-    "CONFIRM": "Confirm"
+    "CONFIRM": "Confirm",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "CONFIRM_PW": "Confirm Password",
+    "REMEMBER_ME": "Remember Me"
 }
