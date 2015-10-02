@@ -26,6 +26,9 @@ paths =
 	icons:
 		src: \bower_components/bootstrap-sass-official/assets/fonts/**/*.*
 		dest: \_public/fonts
+	lang:
+		src: \app/lang/**/*.json
+		dest: \_public/lang
 	html:
 		src: \app/index.html
 		dest: \_public/
@@ -80,6 +83,10 @@ gulp.task \icons, ->
 	gulp.src paths.icons.src
 		.pipe gulp.dest paths.icons.dest
 
+gulp.task \lang, ->
+	gulp.src paths.lang.src
+		.pipe gulp.dest paths.lang.dest
+
 # watch files for changes and reload
 gulp.task \watch, [\build], ->
 	browserSync do
@@ -87,6 +94,6 @@ gulp.task \watch, [\build], ->
 		server:
 			baseDir: paths.outputDir
 
-	gulp.watch [paths.html.src, paths.html.templateSrc, paths.scripts.src, paths.css.src], [\build]
+	gulp.watch [paths.html.src, paths.html.templateSrc, paths.scripts.src, paths.css.src, paths.lang.src], [\build]
 
-gulp.task \build, [\html, \js-vendor, \js-app, \css, \icons]
+gulp.task \build, [\html, \js-vendor, \js-app, \css, \icons, \lang]

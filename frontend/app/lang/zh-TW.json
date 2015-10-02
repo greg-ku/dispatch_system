@@ -1,0 +1,12 @@
+{
+	"LOGIN": "登入",
+    "REGISTER": "註冊",
+    "SEARCH": "搜尋",
+    "COMPANY": "公司",
+    "DESCRIPTION": "描述",
+    "WORKDAY": "工作時間",
+    "PAY": "薪水",
+    "POSITION": "地點",
+    "DATE": "時間",
+    "CONFIRM": "確認"
+}

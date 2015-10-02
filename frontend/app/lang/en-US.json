@@ -1,0 +1,12 @@
+{
+	"LOGIN": "Login",
+    "REGISTER": "Register",
+    "SEARCH": "Search",
+    "COMPANY": "Company",
+    "DESCRIPTION": "Description",
+    "WORKDAY": "Workday",
+    "PAY": "Pay",
+    "POSITION": "Position",
+    "DATE": "Date",
+    "CONFIRM": "Confirm"
+}
