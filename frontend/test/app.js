@@ -1,5 +1,5 @@
 describe('main', function() {
-    beforeEach(module('dispatchApp'))
+    beforeEach(module('dispatchApp'));
 
     beforeEach(inject(function($controller, $rootScope, $modal) {
         var scope = $rootScope.$new();
