@@ -4,6 +4,17 @@
 <div class="modal-body">
 	<form>
 		<div class="form-group">
+			<div class="switch-toggle well">
+				<input id="reg-user-radio" name="reg-type" type="radio" checked>
+				<label for="reg-user-radio">{{ "PERSONAL" | translate }}</label>
+
+				<input id="reg-company-radio" name="reg-type" type="radio">
+				<label for="reg-company-radio">{{ "COMPANY" | translate }}</label>
+
+				<a class="btn btn-primary" href=""></a>
+			</div>
+		</div>
+		<div class="form-group">
 			<label>{{ "USERNAME" | translate }}</label>
 			<input type="text" class="form-control" placeholder="{{ 'USERNAME' | translate }}">
 		</div>

@@ -10,6 +10,7 @@ require! \gulp-ruby-sass
 require! \gulp-angular-templatecache
 require! \gulp-notify
 require! \browser-sync
+require! \merge-stream
 require! \karma
 
 KarmaServer = karma.Server
@@ -22,6 +23,8 @@ env = gulpUtil.env.env || \dev
 builtNames = 
     appJs: \app.js
     vendorJs: \vendor.js
+    extraCss: \tmp.css
+    css: \style.css
 
 paths =
     outputDir: \_public
@@ -45,6 +48,7 @@ paths =
         dir: \app/css
         src: \app/css/style.scss
         dest: \_public/css
+        tmp: \tmp/tmp.css
     tmp: \tmp
 
 gulp.task \html, ->
@@ -74,13 +78,25 @@ gulp.task \js-app, [\template], ->
         .pipe reload { stream: true }
 
 gulp.task \css, ->
-    gulpRubySass do
+    # extra plugin css
+    cssStream = gulpBowerFiles!
+        .pipe gulpFilter (file) -> /\.css$/.test file.path
+        .pipe gulpConcat builtNames.extraCss
+        .pipe gulp.dest paths.tmp
+
+    # compile sass
+    sassStream = gulpRubySass do
         paths.css.src
         style: \compressed
         loadPath:
             paths.css.dir
             paths.bootstrapDir
+    .pipe gulp.dest paths.tmp
+
+    mergeStream sassStream, cssStream
+    .pipe gulpConcat builtNames.css
     .pipe gulp.dest paths.css.dest
+    .pipe reload { stream: true }
 
 gulp.task \icons, ->
     gulp.src paths.icons.src
