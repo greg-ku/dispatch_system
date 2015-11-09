@@ -10,7 +10,13 @@
     "DATE": "Date",
     "CONFIRM": "Confirm",
     "USERNAME": "Username",
+    "COMPANY_NAME": "Company Name",
     "PASSWORD": "Password",
     "CONFIRM_PW": "Confirm Password",
-    "REMEMBER_ME": "Remember Me"
+    "REMEMBER_ME": "Remember Me",
+    "PERSONAL": "Personal",
+    "E_MAIL": "E-mail",
+    "LANGUAGE": "Language",
+    "ENGLISH": "English",
+    "TRAD_CHINESE": "繁體中文"
 }

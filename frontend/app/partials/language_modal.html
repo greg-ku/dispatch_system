@@ -4,8 +4,8 @@
 <div class="modal-body">
 	<form>
 		<div class="form-group">
-			<label>Language:</label>
-			<select ng-model="selectedLang" ng-change="changeLang()" ng-options="lang.lang for lang in langs"></select>
+			<label>{{ "LANGUAGE" | translate }}</label>
+			<select ng-model="selectedLang" ng-change="changeLang()" ng-options="(lang.lang | translate) for lang in langs"></select>
 		</div>
 	</div> <!-- container-fluid -->
 </div>
