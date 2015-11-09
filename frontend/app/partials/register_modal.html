@@ -1,45 +1,45 @@
 <div class="modal-header">
-	<button type="button" class="close" aria-label="Close" ng-click="close();"><span aria-hidden="true">&times;</span></button>
+    <button type="button" class="close" aria-label="Close" ng-click="close();"><span aria-hidden="true">&times;</span></button>
 </div>
 <div class="modal-body">
-	<form>
-		<div class="form-group">
-			<div class="switch-toggle well">
-				<input id="reg-user-radio" name="reg-type" type="radio" checked ng-click="regType = 'PERSONAL'">
-				<label for="reg-user-radio">{{ "PERSONAL" | translate }}</label>
+    <form>
+        <div class="form-group">
+            <div class="switch-toggle well">
+                <input id="reg-user-radio" name="reg-type" type="radio" checked ng-click="regType = 'PERSONAL'">
+                <label for="reg-user-radio">{{ "PERSONAL" | translate }}</label>
 
-				<input id="reg-company-radio" name="reg-type" type="radio" ng-click="regType = 'COMPANY'">
-				<label for="reg-company-radio">{{ "COMPANY" | translate }}</label>
+                <input id="reg-company-radio" name="reg-type" type="radio" ng-click="regType = 'COMPANY'">
+                <label for="reg-company-radio">{{ "COMPANY" | translate }}</label>
 
-				<a class="btn btn-primary" href=""></a>
-			</div>
-		</div>
-		<div class="form-group" ng-hide="regType != 'PERSONAL'">
-			<label>{{ "USERNAME" | translate }}</label>
-			<input type="text" class="form-control" placeholder="{{ 'USERNAME' | translate }}"
-			ng-model="acc.username" ng-maxlength="{{LENGTH.NAME}}">
-		</div>
-		<div class="form-group" ng-hide="regType != 'COMPANY'">
-			<label>{{ "COMPANY_NAME" | translate }}</label>
-			<input type="text" class="form-control" placeholder="{{ 'COMPANY_NAME' | translate }}"
-			ng-model="acc.company" ng-maxlength="{{LENGTH.NAME}}">
-		</div>
-		<div class="form-group">
-			<label>{{ "PASSWORD" | translate }}</label>
-			<input type="password" class="form-control" placeholder="{{ 'PASSWORD' | translate }}"
-			ng-model="acc.pw" ng-maxlength="{{LENGTH.GENERAL}}">
-		</div>
-		<div class="form-group">
-			<label>{{ "CONFIRM_PW" | translate }}</label>
-			<input type="password" class="form-control" ng-model="acc.confirmPw" ng-maxlength="{{LENGTH.GENERAL}}">
-		</div>
-		<div class="form-group">
-			<label>{{ "E_MAIL" | translate }}</label>
-			<input type="email" class="form-control" placeholder="{{ 'E_MAIL' | translate }}"
-			ng-model="acc.email" ng-maxlength="{{LENGTH.GENERAL}}">
-		</div>
-	</div> <!-- container-fluid -->
+                <a class="btn btn-primary" href=""></a>
+            </div>
+        </div>
+        <div class="form-group" ng-hide="regType != 'PERSONAL'">
+            <label>{{ "USERNAME" | translate }}</label>
+            <input type="text" class="form-control" placeholder="{{ 'USERNAME' | translate }}"
+            ng-model="acc.username" ng-maxlength="{{LENGTH.NAME}}">
+        </div>
+        <div class="form-group" ng-hide="regType != 'COMPANY'">
+            <label>{{ "COMPANY_NAME" | translate }}</label>
+            <input type="text" class="form-control" placeholder="{{ 'COMPANY_NAME' | translate }}"
+            ng-model="acc.company" ng-maxlength="{{LENGTH.NAME}}">
+        </div>
+        <div class="form-group">
+            <label>{{ "PASSWORD" | translate }}</label>
+            <input type="password" class="form-control" placeholder="{{ 'PASSWORD' | translate }}"
+            ng-model="acc.pw" ng-maxlength="{{LENGTH.GENERAL}}">
+        </div>
+        <div class="form-group">
+            <label>{{ "CONFIRM_PW" | translate }}</label>
+            <input type="password" class="form-control" ng-model="acc.confirmPw" ng-maxlength="{{LENGTH.GENERAL}}">
+        </div>
+        <div class="form-group">
+            <label>{{ "E_MAIL" | translate }}</label>
+            <input type="email" class="form-control" placeholder="{{ 'E_MAIL' | translate }}"
+            ng-model="acc.email" ng-maxlength="{{LENGTH.GENERAL}}">
+        </div>
+    </div> <!-- container-fluid -->
 </div>
 <div class="modal-footer">
-	<button class="btn btn-default" ng-click="registerAcc(acc)">{{ "REGISTER" | translate }}</button>
+    <button class="btn btn-default" ng-click="registerAcc(acc)">{{ "REGISTER" | translate }}</button>
 </div>

@@ -1,25 +1,25 @@
 @import "bootstrap";
 
 [class*="col-"] {
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 a:hover, a:focus {
-	outline: none;
+    outline: none;
 }
 
 #joblist {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .modal-header {
-	min-height: 42px;
+    min-height: 42px;
 
-	.close {
-		margin-top: -18px;
+    .close {
+        margin-top: -18px;
 
-		span {
-			font-size: 2em;
-		}
-	}
+        span {
+            font-size: 2em;
+        }
+    }
 }
