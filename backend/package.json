@@ -13,6 +13,8 @@
     "livescript": "^1.4.0"
   },
   "dependencies": {
-    "express": "^4.13.1"
+    "body-parser": "^1.14.1",
+    "express": "^4.13.1",
+    "mongoose": "^4.2.5"
   }
 }
