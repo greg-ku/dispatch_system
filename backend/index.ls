@@ -9,8 +9,8 @@ app = express!
 require \./lib/db
 
 # routes
-routesDir = \./routes
-account = require routesDir + \/account
+ROUTES_DIR = \./routes
+account = require ROUTES_DIR + \/account
 
 # configures
 env = process.env.NODE_ENV || "development";

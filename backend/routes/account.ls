@@ -4,8 +4,8 @@ require! \crypto
 require! \mongoose
 require! \path
 # self module
-MAINDIR = path.dirname require.main.filename
-middleware = require MAINDIR + \/lib/dispatch-middleware
+MAIN_DIR = path.dirname require.main.filename
+middleware = require MAIN_DIR + \/lib/dispatch-middleware
 
 api = express.Router!
 
