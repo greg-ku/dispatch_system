@@ -1,5 +1,5 @@
-require! crypto
-require! mongoose
+require! \crypto
+require! \mongoose
 
 Account = mongoose.model \Account
 
@@ -29,12 +29,13 @@ exports.create = (req, res) ->
         res.send err if err
         if accs.length
             console.log 'account name exist'
+            res.json code: 405, msg: 'account name exist'
             return
 
         new Account {
-            Type: acc.type,
-            Name: acc.name,
-            Email: acc.email,
+            Type: acc.type
+            Name: acc.name
+            Email: acc.email
             Password: acc.pw
         }
         .save (err) ->
@@ -44,20 +45,36 @@ exports.create = (req, res) ->
                 return
             res.json code: 200
 
-
 exports.login = (req, res) ->
-    acc = {}
-
     # check parameter existence
     if req.body.username == undefined or req.body.password == undefined
         return
 
+    acc = {}
     acc.name = req.body.username
     acc.pw = encrypt req.body.password
 
     Account.find Name: acc.name, (err, accs) ->
         res.send err if err
         if accs.length != 1 or accs[0]?.Password != acc.pw
-            res.json code: 401, msg: 'incorrect username or password'
-        else
+            res.json code: 404, msg: 'incorrect username or password'
+            return
+        req.session.logined = true
+        res.json code: 200
+
+exports.logout = (req, res) ->
+    # check parameter existence
+    if req.body.username == undefined
+        res.json code: 400
+        return
+
+    acc = {}
+    acc.name = req.body.username
+
+    Account.find Name: acc.name, (err, accs) ->
+        res.send err if err
+        if accs.length == 1
+            req.session.logined = false
             res.json code: 200
+        else
+            res.json code: 405, msg: 'logout failed'
