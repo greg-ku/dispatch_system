@@ -1,12 +1,20 @@
+# 3rd party module
+require! \express
 require! \crypto
 require! \mongoose
+require! \path
+# self module
+MAINDIR = path.dirname require.main.filename
+middleware = require MAINDIR + \/lib/dispatch-middleware
+
+api = express.Router!
 
 Account = mongoose.model \Account
 
 # password encrypt function
 encrypt = (pw) -> crypto.createHmac \sha256, pw .digest \hex
 
-exports.create = (req, res) ->
+api.post \/, middleware.loginRequired, (req, res) ->
     acc = {}
     acc.type = req.body.type
 
@@ -45,7 +53,7 @@ exports.create = (req, res) ->
                 return
             res.json code: 200
 
-exports.login = (req, res) ->
+api.post \/login, (req, res) ->
     # check parameter existence
     if req.body.username == undefined or req.body.password == undefined
         return
@@ -62,7 +70,7 @@ exports.login = (req, res) ->
         req.session.logined = true
         res.json code: 200
 
-exports.logout = (req, res) ->
+api.post \/logout, middleware.loginRequired, (req, res) ->
     # check parameter existence
     if req.body.username == undefined
         res.json code: 400
@@ -78,3 +86,5 @@ exports.logout = (req, res) ->
             res.json code: 200
         else
             res.json code: 405, msg: 'logout failed'
+
+module.exports = api

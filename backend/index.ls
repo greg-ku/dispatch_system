@@ -2,8 +2,7 @@
 require! \express
 require! \cookie-session
 require! \body-parser
-# self module
-middleware = require \./lib/dispatch-middleware
+
 app = express!
 
 # db
@@ -28,9 +27,7 @@ case "development"
         keys: [ \DispatchSignToken, \DisPatchVerifyToken ]
 
 # APIs
-app.post \/account, middleware.loginRequired, account.create
-app.post \/login, account.login
-app.post \/logout, middleware.loginRequired, account.logout
+app.use \/api/account, account
 
 # bootstrap server
 app.listen 8080
