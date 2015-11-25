@@ -16,7 +16,7 @@ Account = mongoose.model \Account
 # password encrypt function
 encrypt = (pw) -> crypto.createHmac \sha256, pw .digest \hex
 
-api.post \/, middleware.loginRequired, (req, res) ->
+api.post \/, (req, res) ->
     acc = {}
     acc.type = req.body.type
 

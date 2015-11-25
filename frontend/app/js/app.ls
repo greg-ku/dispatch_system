@@ -10,3 +10,15 @@ dispatchApp.config [\$translateProvider, ($translateProvider) ->
     preferLang = window.localStorage[\lang] || \en-US
     $translateProvider.preferredLanguage preferLang
 ]
+
+dispatchApp.factory \globalVars, ->
+    prefix = \/api
+    vars =
+        API: {}
+
+    vars.API.account =
+        create: prefix + \/account
+        login: prefix + \/account/login
+        logout: prefix + \/account/logout
+
+    return vars
