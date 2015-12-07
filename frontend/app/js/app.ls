@@ -20,5 +20,11 @@ dispatchApp.factory \globalVars, ->
         create: prefix + \/account
         login: prefix + \/account/login
         logout: prefix + \/account/logout
+        available: prefix + \/account/available
+
+    vars.isEmail = (str) ->
+        if str?.length <= 0
+            return false
+        /^[\w.-]+@[\w.-]+\.[\w]{2,}/.test str
 
     return vars

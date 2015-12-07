@@ -89,4 +89,21 @@ api.post \/logout, middleware.loginRequired, (req, res) ->
         else
             res.json code: CODE.E_FAIL, msg: 'logout failed'
 
+api.get \/available, (req, res) ->
+    # check parameter existence
+    if req.query.username == undefined
+        res.json code: CODE.E_INVALID_ARGUMENT
+        return
+
+    Account.find Name: req.query.username, (err, accs) ->
+        res.send err if err
+        if accs.length == 1
+            res.json do
+                available: false
+                code: CODE.S_OK
+        else
+            res.json do
+                available: true
+                code: CODE.S_OK
+
 module.exports = api
