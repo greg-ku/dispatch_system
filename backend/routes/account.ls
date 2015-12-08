@@ -16,22 +16,37 @@ Account = mongoose.model \Account
 # password encrypt function
 encrypt = (pw) -> crypto.createHmac \sha256, pw .digest \hex
 
-api.post \/, (req, res) ->
+api.route \/
+.get middleware.loginRequired, (req, res) ->
+    # list accounts
+
+    # check parameter existence
+    if (req.query.type != \PERSONAL and req.query.type != \COMPANL
+        or req.query.skip == undefined)
+        res.json code: CODE.E_FAIL, msg: 'incorrect parameter'
+        return
+
+    Account.find {}, null, skip: req.query.skip, limit: 10, (err, accs) ->
+        res.send err if err
+        res.json accs
+
+.post (req, res) ->
+    # create a new account
     acc = {}
     acc.type = req.body.type
 
     # check parameter existence
-    if acc.type != \PERSONAL and acc.type != \COMPANY
-        return
-    if acc.type == \PERSONAL and req.body.username == undefined
-        return
-    if acc.type == \COMPANY and req.body.company == undefined
-        return
-    if req.body.email == undefined or req.body.password == undefined
+    if (acc.type != \PERSONAL and acc.type != \COMPANY
+        or acc.type == \PERSONAL and (req.body.firstName == undefined or req.body.lastName == undefined)
+        or acc.type == \COMPANY and req.body.companyName == undefined
+        or req.body.username == undefined or req.body.email == undefined or req.body.password == undefined)
+        res.json code: CODE.E_FAIL, msg: 'incorrect parameter'
         return
 
-    acc.name = req.body.username if acc.type == \PERSONAL
-    acc.name = req.body.company if acc.type == \COMPANY
+    acc.name = req.body.username
+    acc.firstName = req.body.firstName if acc.type == \PERSONAL
+    acc.lastName = req.body.lastName if acc.type == \PERSONAL
+    acc.companyName = req.body.company if acc.type == \COMPANY
     acc.email = req.body.email
     acc.pw = encrypt req.body.password
 
@@ -47,6 +62,10 @@ api.post \/, (req, res) ->
             Name: acc.name
             Email: acc.email
             Password: acc.pw
+            Profile: 
+                FirstName: acc.firstName
+                LastName: acc.lastName
+                CompanyName: acc.companyName
         }
         .save (err) ->
             if err

@@ -1,15 +1,22 @@
 require! mongoose
 Schema = mongoose.Schema
 
-Account = new Schema {
-    Type: String
-    Name: String
-    Email: String
-    Password: String
-    MessageID: Schema.Types.ObjectId
+ProfileSchema = new Schema {
+    FirstName: String
+    LastName: String
+    CompanyName: String
 }
 
-mongoose.model \Account, Account
+AccountSchema = new Schema {
+    Type: String
+    Name: String
+    Password: String
+    Eamil: String
+    Profile: ProfileSchema
+}
+
+mongoose.model \Account, AccountSchema
+mongoose.model \Profile, ProfileSchema
 
 # connect
 mongoose.connect \mongodb://localhost/dispatch-dev
