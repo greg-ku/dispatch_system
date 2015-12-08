@@ -14,7 +14,7 @@
                 <a class="btn btn-primary" href=""></a>
             </div>
         </div>
-        <div class="form-group" ng-hide="regType != 'PERSONAL'">
+        <div class="form-group">
             <label>{{ "USERNAME" | translate }}</label>
             <input type="text" class="form-control" placeholder="{{ 'USERNAME' | translate }}"
             ng-model="acc.username" ng-maxlength="{{LENGTH.NAME.MAX}}" ng-blur="checkNameUsed('username', acc.username)"
@@ -26,10 +26,27 @@
                 <strong>Error: </strong>{{ errMsg | translate }}
             </div>
         </div>
+        <div class="form-group" ng-hide="regType != 'PERSONAL'">
+            <div class="row">
+                <div class="col-md-8">
+                    <label>{{ "FIRST_NAME" | translate }}</label>
+                    <input type="text" class="form-control" placeholder="{{ 'FIRST_NAME' | translate }}"
+                    ng-model="acc.firstName" ng-maxlength="{{LENGTH.GENERAL}}">
+                </div>
+                <div class="col-md-4">
+                    <label>{{ "LAST_NAME" | translate }}</label>
+                    <input type="text" class="form-control" placeholder="{{ 'LAST_NAME' | translate }}"
+                    ng-model="acc.lastName" ng-maxlength="{{LENGTH.GENERAL}}">
+                </div>
+            </div>
+            <div ng-hide="errTarget !== 'realname'" class="alert alert-danger" role="alert">
+                <strong>Error: </strong>{{ errMsg | translate }}
+            </div>
+        </div>
         <div class="form-group" ng-hide="regType != 'COMPANY'">
             <label>{{ "COMPANY_NAME" | translate }}</label>
             <input type="text" class="form-control" placeholder="{{ 'COMPANY_NAME' | translate }}"
-            ng-model="acc.company" ng-maxlength="{{LENGTH.NAME.MAX}}">
+            ng-model="acc.companyName" ng-maxlength="{{LENGTH.GENERAL}}">
             <div ng-hide="errTarget !== 'company'" class="alert alert-danger" role="alert">
                 <strong>Error: </strong>{{ errMsg | translate }}
             </div>

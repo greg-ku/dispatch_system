@@ -10,6 +10,8 @@
     "DATE": "時間",
     "CONFIRM": "確認",
     "USERNAME": "名稱",
+    "FIRST_NAME": "名",
+    "LAST_NAME": "姓",
     "COMPANY_NAME": "公司名稱",
     "PASSWORD": "密碼",
     "CONFIRM_PW": "確認密碼",

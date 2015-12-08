@@ -10,6 +10,8 @@ dispatchApp.controller \registerCtrl, [\$scope, \$modalInstance, \$http, \global
         INCORRECT_PW_LENGTH: \INCORRECT_PW_LENGTH
         PW_NOT_CONFIRM: \PW_NOT_CONFIRM
         WRONG_EMAIL_FORMAT: \WRONG_EMAIL_FORMAT
+        SHOULD_NOT_EMPTY: \SHOULD_NOT_EMPTY
+        CHAR_TOO_LONG: \CHAR_TOO_LONG
 
     $scope.LENGTH =
         NAME:
@@ -19,6 +21,7 @@ dispatchApp.controller \registerCtrl, [\$scope, \$modalInstance, \$http, \global
             MIN: 6
             MAX: 100
         EMAIL: 100
+        GENERAL: 100
 
     # default type
     $scope.regType = \PERSONAL
@@ -86,6 +89,21 @@ dispatchApp.controller \registerCtrl, [\$scope, \$modalInstance, \$http, \global
         if !$scope.checkPasswordValid acc
             return false
 
+        if $scope.regType == \PERSONAL
+            if !acc.firstName or !acc.lastName
+                $scope.setErrorMsg \realname, PROMPT.SHOULD_NOT_EMPTY
+                return false
+            if acc.firstName.length > LENGTH.GENERAL or acc.lastName.length > LENGTH.GENERAL
+                $scope.setErrorMsg \realname, PROMPT.CHAR_TOO_LONG
+                return false
+        else if $scope.regType == \COMPANY
+            if !acc.companyName
+                $scope.setErrorMsg \company, PROMPT.SHOULD_NOT_EMPTY
+                return false
+            if acc.firstName.length > LENGTH.GENERAL or acc.lastName.length > LENGTH.GENERAL
+                $scope.setErrorMsg \company, PROMPT.CHAR_TOO_LONG
+                return false
+
         if !globalVars.isEmail acc.email
             $scope.setErrorMsg \email, PROMPT.WRONG_EMAIL_FORMAT
             return false
@@ -99,8 +117,9 @@ dispatchApp.controller \registerCtrl, [\$scope, \$modalInstance, \$http, \global
         $scope.errTarget = ''
 
         delete acc.confirmPw
-        delete acc.username if $scope.regType != \PERSONAL
-        delete acc.company if $scope.regType != \COMPANY
+        delete acc.firstName if $scope.regType != \PERSONAL
+        delete acc.lastName if $scope.regType != \PERSONAL
+        delete acc.companyName if $scope.regType != \COMPANY
         acc.type = $scope.regType
 
         $scope.requesting = true

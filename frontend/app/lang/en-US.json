@@ -10,6 +10,8 @@
     "DATE": "Date",
     "CONFIRM": "Confirm",
     "USERNAME": "Username",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
     "COMPANY_NAME": "Company Name",
     "PASSWORD": "Password",
     "CONFIRM_PW": "Confirm Password",
