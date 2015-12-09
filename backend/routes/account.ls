@@ -93,13 +93,8 @@ api.post \/login, (req, res) ->
         res.json code: CODE.S_OK, userInfo: accs[0]
 
 api.post \/logout, middleware.loginRequired, (req, res) ->
-    # check parameter existence
-    if req.body.username == undefined
-        res.json code: CODE.E_INVALID_ARGUMENT
-        return
-
     acc = {}
-    acc.username = req.body.username
+    acc.username = req.session.loggedInUsername
 
     Account.find username: acc.username, (err, accs) ->
         res.send err if err
