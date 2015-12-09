@@ -1,4 +1,4 @@
-require! \gulp
+    require! \gulp
 require! \gulp-util
 require! \gulp-bower-files
 require! \gulp-filter
@@ -115,6 +115,8 @@ gulp.task \watch, [\build], ->
         browser: "google chrome"
         server:
             baseDir: paths.outputDir
+            routes:
+                '/api': 'test/mocks'
 
     gulp.watch [paths.html.src, paths.html.templateSrc, paths.scripts.src, paths.css.src, paths.lang.src], [\build]
 

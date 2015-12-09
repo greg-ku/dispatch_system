@@ -1,0 +1,13 @@
+{
+    "code": 200,
+    "userInfo": {
+        "type": "PERSONAL",
+        "username": "gregtest",
+        "email": "gregtest@gmail.com",
+        "_id": "notsure",
+        "profile": {
+            "firstName": "Hung Hsun",
+            "lastName": "Ku"
+        }
+    }
+}

@@ -29,7 +29,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="" ng-click="openLangModal();">Language</a></li>
-                            <li role="separator" class="divider"></li>
+                            <li ng-if="loggedIn" role="separator" class="divider"></li>
                             <li ng-if="loggedIn"><a href="" ng-click="logout();">{{ "LOGOUT" | translate }}</a></li>
                         </ul>
                     </li>
