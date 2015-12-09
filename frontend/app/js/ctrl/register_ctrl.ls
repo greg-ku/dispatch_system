@@ -23,8 +23,9 @@ dispatchApp.controller \registerCtrl, [\$scope, \$modalInstance, \$http, \global
         EMAIL: 100
         GENERAL: 100
 
-    # default type
+    # default values
     $scope.regType = \PERSONAL
+    $scope.acc = {}
 
     $scope.setErrorMsg = (target, msg) ->
         # remove name available message
@@ -126,6 +127,7 @@ dispatchApp.controller \registerCtrl, [\$scope, \$modalInstance, \$http, \global
         $http.post api.account.create, acc
         .then (responseObj) -> # success callback
             res = responseObj.data
+            # TODO: a better way to show success
             if res.code == 200
                 alert 'register success'
                 $scope.close!

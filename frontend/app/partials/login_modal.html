@@ -2,23 +2,32 @@
     <button type="button" class="close" aria-label="Close" ng-click="close();"><span aria-hidden="true">&times;</span></button>
 </div>
 <div class="modal-body">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <input type="text" class="form-control" placeholder="{{ 'USERNAME' | translate }}">
-            </div>
-            <div class="col-md-12">
-                <input type="password" class="form-control" placeholder="{{ 'PASSWORD' | translate }}">
-            </div>
-            <div class="col-md-12">
-                <label>
-                    <input type="checkbox">
-                    {{ "REMEMBER_ME" | translate }}
-                </label>
+    <form novalidate>
+        <div class="form-group">
+            <label>{{ "USERNAME" | translate }}</label>
+            <input type="text" class="form-control" ng-model="acc.username" placeholder="{{ 'USERNAME' | translate }}">
+            <div ng-hide="errTarget !== 'username'" class="alert alert-danger" role="alert">
+                <strong>Error: </strong>{{ errMsg | translate }}
             </div>
         </div>
-    </div> <!-- container-fluid -->
+        <div class="form-group">
+            <label>{{ "PASSWORD" | translate }}</label>
+            <input type="password" class="form-control" ng-model="acc.password" placeholder="{{ 'PASSWORD' | translate }}">
+            <div ng-hide="errTarget !== 'password'" class="alert alert-danger" role="alert">
+                <strong>Error: </strong>{{ errMsg | translate }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" ng-model="acc.rememberMe">
+                {{ "REMEMBER_ME" | translate }}
+            </label>
+        </div>
+    </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-default">{{ "LOGIN" | translate }}</button>
+    <button ng-click="login(acc)" ng-disabled="requesting" class="btn btn-default">{{ "LOGIN" | translate }}</button>
+    <div ng-hide="errTarget !== 'confirm'" class="alert alert-danger" role="alert">
+        <strong>Error: </strong>{{ errMsg | translate }}
+    </div>
 </div>

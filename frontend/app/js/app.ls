@@ -28,3 +28,14 @@ dispatchApp.factory \globalVars, ->
         /^[\w.-]+@[\w.-]+\.[\w]{2,}/.test str
 
     return vars
+
+dispatchApp.factory \loginInfo, ->
+    info = {}
+    info.loggedIn = false
+    info.userInfo = {}
+
+    info.setLoggedIn = (loggedIn, userInfo) ->
+        this.loggedIn = loggedIn
+        this.userInfo = userInfo
+    info.getUserInfo = -> this.userInfo
+    info.isLoggedIn = -> this.loggedIn
