@@ -8,7 +8,7 @@ CODE = globalVars.STATUS_CODE
 dispatchMiddleware = {}
 
 dispatchMiddleware.loginRequired = (req, res, next) ->
-    if !req.session.logined
+    if !req.session.loggedInUsername
         res.json code: CODE.E_AUTH_FAILED
         return
     next!

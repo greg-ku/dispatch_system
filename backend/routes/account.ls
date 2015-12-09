@@ -43,7 +43,7 @@ api.route \/
         res.json code: CODE.E_FAIL, msg: 'incorrect parameter'
         return
 
-    acc.name = req.body.username
+    acc.username = req.body.username
     acc.firstName = req.body.firstName if acc.type == \PERSONAL
     acc.lastName = req.body.lastName if acc.type == \PERSONAL
     acc.companyName = req.body.company if acc.type == \COMPANY
@@ -51,7 +51,7 @@ api.route \/
     acc.pw = encrypt req.body.password
 
     # TODO: one email only able to register one account
-    Account.find name: acc.name, (err, accs) ->
+    Account.find username: acc.username, (err, accs) ->
         res.send err if err
         if accs.length
             console.log 'account name exist'
@@ -60,7 +60,7 @@ api.route \/
 
         new Account {
             type: acc.type
-            name: acc.name
+            username: acc.username
             email: acc.email
             password: acc.pw
             profile: 
@@ -81,15 +81,15 @@ api.post \/login, (req, res) ->
         return
 
     acc = {}
-    acc.name = req.body.username
+    acc.username = req.body.username
     acc.pw = encrypt req.body.password
 
-    Account.find name: acc.name, (err, accs) ->
+    Account.find username: acc.username, (err, accs) ->
         res.send err if err
         if accs.length != 1 or accs[0]?.password != acc.pw
             res.json code: CODE.E_INVALID_ARGUMENT, msg: 'incorrect username or password'
             return
-        req.session.logined = true
+        req.session.loggedInUsername = accs[0].username
         res.json code: CODE.S_OK, userInfo: accs[0]
 
 api.post \/logout, middleware.loginRequired, (req, res) ->
@@ -99,12 +99,12 @@ api.post \/logout, middleware.loginRequired, (req, res) ->
         return
 
     acc = {}
-    acc.name = req.body.username
+    acc.username = req.body.username
 
-    Account.find name: acc.name, (err, accs) ->
+    Account.find username: acc.username, (err, accs) ->
         res.send err if err
         if accs.length == 1
-            req.session.logined = false
+            delete req.session.loggedInUsername
             res.json code: CODE.S_OK
         else
             res.json code: CODE.E_FAIL, msg: 'logout failed'
@@ -115,7 +115,7 @@ api.get \/available, (req, res) ->
         res.json code: CODE.E_INVALID_ARGUMENT
         return
 
-    Account.find name: req.query.username, (err, accs) ->
+    Account.find username: req.query.username, (err, accs) ->
         res.send err if err
         if accs.length == 1
             res.json do
@@ -125,5 +125,15 @@ api.get \/available, (req, res) ->
             res.json do
                 available: true
                 code: CODE.S_OK
+
+api.get \/current, middleware.loginRequired, (req, res) ->
+    Account.find username: req.session.loggedInUsername, (err, accs) ->
+        res.send err if err
+        if accs.length == 1
+            res.json do
+                userInfo: accs[0]
+                code: CODE.S_OK
+        else
+            res.json code: CODE.E_FAIL
 
 module.exports = api

@@ -9,7 +9,7 @@ ProfileSchema = new Schema {
 
 AccountSchema = new Schema {
     type: String
-    name: String
+    username: String
     password: String
     eamil: String
     profile: ProfileSchema
