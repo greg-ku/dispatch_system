@@ -51,7 +51,7 @@ api.route \/
     acc.pw = encrypt req.body.password
 
     # TODO: one email only able to register one account
-    Account.find Name: acc.name, (err, accs) ->
+    Account.find name: acc.name, (err, accs) ->
         res.send err if err
         if accs.length
             console.log 'account name exist'
@@ -59,14 +59,14 @@ api.route \/
             return
 
         new Account {
-            Type: acc.type
-            Name: acc.name
-            Email: acc.email
-            Password: acc.pw
-            Profile: 
-                FirstName: acc.firstName
-                LastName: acc.lastName
-                CompanyName: acc.companyName
+            type: acc.type
+            name: acc.name
+            email: acc.email
+            password: acc.pw
+            profile: 
+                firstName: acc.firstName
+                lastName: acc.lastName
+                companyName: acc.companyName
         }
         .save (err) ->
             if err
@@ -84,9 +84,9 @@ api.post \/login, (req, res) ->
     acc.name = req.body.username
     acc.pw = encrypt req.body.password
 
-    Account.find Name: acc.name, (err, accs) ->
+    Account.find name: acc.name, (err, accs) ->
         res.send err if err
-        if accs.length != 1 or accs[0]?.Password != acc.pw
+        if accs.length != 1 or accs[0]?.password != acc.pw
             res.json code: CODE.E_INVALID_ARGUMENT, msg: 'incorrect username or password'
             return
         req.session.logined = true
@@ -101,7 +101,7 @@ api.post \/logout, middleware.loginRequired, (req, res) ->
     acc = {}
     acc.name = req.body.username
 
-    Account.find Name: acc.name, (err, accs) ->
+    Account.find name: acc.name, (err, accs) ->
         res.send err if err
         if accs.length == 1
             req.session.logined = false
@@ -115,7 +115,7 @@ api.get \/available, (req, res) ->
         res.json code: CODE.E_INVALID_ARGUMENT
         return
 
-    Account.find Name: req.query.username, (err, accs) ->
+    Account.find name: req.query.username, (err, accs) ->
         res.send err if err
         if accs.length == 1
             res.json do

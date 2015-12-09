@@ -2,32 +2,32 @@ require! mongoose
 Schema = mongoose.Schema
 
 ProfileSchema = new Schema {
-    FirstName: String
-    LastName: String
-    CompanyName: String
+    firstName: String
+    lastName: String
+    companyName: String
 }
 
 AccountSchema = new Schema {
-    Type: String
-    Name: String
-    Password: String
-    Eamil: String
-    Profile: ProfileSchema
-    OwnCases: [Schema.Types.ObjectId]
+    type: String
+    name: String
+    password: String
+    eamil: String
+    profile: ProfileSchema
+    ownCases: [Schema.Types.ObjectId]
 }
 
 CaseSchema = new Schema {
-    Title: String
-    Discription: String
-    Salary:
-        Payment: Number
-        Unit: String
-    Position: String
-    Workday: [Begin: Date, End: Date]
-    Owner: Schema.Types.ObjectId
-    Candidates: [Schema.Types.ObjectId]
-    CreateDate: { type: Date, default: Date.now }
-    Updated: { type: Date, default: Date.now }
+    title: String
+    discription: String
+    salary:
+        payment: Number
+        unit: String
+    position: String
+    workday: [Begin: Date, End: Date]
+    owner: Schema.Types.ObjectId
+    candidates: [Schema.Types.ObjectId]
+    createDate: { type: Date, default: Date.now }
+    updated: { type: Date, default: Date.now }
 }
 
 mongoose.model \Account, AccountSchema
