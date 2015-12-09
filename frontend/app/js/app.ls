@@ -11,6 +11,7 @@ dispatchApp.config [\$translateProvider, ($translateProvider) ->
     $translateProvider.preferredLanguage preferLang
 ]
 
+# global variables service
 dispatchApp.factory \globalVars, ->
     prefix = \/api
     vars =
@@ -21,6 +22,7 @@ dispatchApp.factory \globalVars, ->
         login: prefix + \/account/login
         logout: prefix + \/account/logout
         available: prefix + \/account/available
+        getCurrent: prefix + \/account/current
 
     vars.isEmail = (str) ->
         if str?.length <= 0
@@ -29,13 +31,17 @@ dispatchApp.factory \globalVars, ->
 
     return vars
 
+# login info service
 dispatchApp.factory \loginInfo, ->
     info = {}
     info.loggedIn = false
     info.userInfo = {}
 
+    # public functions
     info.setLoggedIn = (loggedIn, userInfo) ->
         this.loggedIn = loggedIn
         this.userInfo = userInfo
     info.getUserInfo = -> this.userInfo
     info.isLoggedIn = -> this.loggedIn
+
+    return info
