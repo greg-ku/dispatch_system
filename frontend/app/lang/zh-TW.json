@@ -1,5 +1,6 @@
 {
-	"LOGIN": "登入",
+    "LOGIN": "登入",
+    "LOGOUT": "登出",
     "REGISTER": "註冊",
     "SEARCH": "搜尋",
     "COMPANY": "公司",

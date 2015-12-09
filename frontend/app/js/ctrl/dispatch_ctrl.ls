@@ -1,4 +1,6 @@
 dispatchApp.controller \dispatchCtrl, [\$scope, \$modal, \$http, \globalVars, \loginInfo, ($scope, $modal, $http, globalVars, loginInfo) ->
+    api = globalVars.API
+
     $scope.openLoginModal = ->
         modalInstance = $modal.open do
             animation: true
@@ -18,20 +20,28 @@ dispatchApp.controller \dispatchCtrl, [\$scope, \$modal, \$http, \globalVars, \l
             templateUrl: \language_modal.html
             controller: \languageCtrl
 
-    $scope.setLoginInfo = ->
+    $scope.updateLoginInfo = ->
         $scope.loggedIn = loginInfo.loggedIn
         $scope.userInfo = loginInfo.userInfo
 
     # listen events
     $scope.$on \loggedIn, (event) ->
-        $scope.setLoginInfo!
+        $scope.updateLoginInfo!
 
     # fetch current user info
-    $http.get globalVars.API.account.getCurrent
+    $http.get api.account.getCurrent
     .then (responseObj) ->
         res = responseObj.data
         loginInfo.setLoggedIn true, res.userInfo if res.userInfo
-        $scope.setLoginInfo!
+        $scope.updateLoginInfo!
     , (responseObj) ->
 
+    $scope.logout = ->
+        $http.post api.account.logout
+        .then (responseObj) ->
+            if responseObj.data.code == 200
+                loginInfo.setLoggedIn false, null
+                $scope.updateLoginInfo!
+            # TODO: handle logout failed
+        , (responseObj) ->
 ]

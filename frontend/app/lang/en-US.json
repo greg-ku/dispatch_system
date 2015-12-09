@@ -1,5 +1,6 @@
 {
-	"LOGIN": "Login",
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
     "REGISTER": "Register",
     "SEARCH": "Search",
     "COMPANY": "Company",
