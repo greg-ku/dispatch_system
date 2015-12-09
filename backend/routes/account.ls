@@ -18,7 +18,7 @@ encrypt = (pw) -> crypto.createHmac \sha256, pw .digest \hex
 
 api.route \/
 .get middleware.loginRequired, (req, res) ->
-    # list accounts
+    # list accounts, test api, should not open
 
     # check parameter existence
     if (req.query.type != \PERSONAL and req.query.type != \COMPANL
@@ -50,6 +50,7 @@ api.route \/
     acc.email = req.body.email
     acc.pw = encrypt req.body.password
 
+    # TODO: one email only able to register one account
     Account.find Name: acc.name, (err, accs) ->
         res.send err if err
         if accs.length
@@ -89,7 +90,7 @@ api.post \/login, (req, res) ->
             res.json code: CODE.E_INVALID_ARGUMENT, msg: 'incorrect username or password'
             return
         req.session.logined = true
-        res.json code: CODE.S_OK
+        res.json code: CODE.S_OK, userInfo: accs[0]
 
 api.post \/logout, middleware.loginRequired, (req, res) ->
     # check parameter existence
