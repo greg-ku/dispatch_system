@@ -24,6 +24,16 @@ dispatchApp.factory \globalVars, ->
         available: prefix + \/account/available
         getCurrent: prefix + \/account/current
 
+    vars.PROMPT =
+        NAME_USED: \NAME_USED
+        INVALID_CHAR: \INVALID_CHAR
+        INCORRECT_NAME_LENGTH: \INCORRECT_NAME_LENGTH
+        INCORRECT_PW_LENGTH: \INCORRECT_PW_LENGTH
+        PW_NOT_CONFIRM: \PW_NOT_CONFIRM
+        WRONG_EMAIL_FORMAT: \WRONG_EMAIL_FORMAT
+        SHOULD_NOT_EMPTY: \SHOULD_NOT_EMPTY
+        CHAR_TOO_LONG: \CHAR_TOO_LONG
+
     vars.isEmail = (str) ->
         if str?.length <= 0
             return false
