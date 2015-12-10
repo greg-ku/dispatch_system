@@ -1,14 +1,19 @@
 templates = angular.module \templates, []
 
-dispatchApp = angular.module \dispatchApp, [\ui.bootstrap, \templates, \pascalprecht.translate]
+dispatchApp = angular.module \dispatchApp, [\ngRoute, \ui.bootstrap, \templates, \pascalprecht.translate]
 
-dispatchApp.config [\$translateProvider, ($translateProvider) ->
+dispatchApp.config [\$routeProvider, \$translateProvider, ($routeProvider, $translateProvider) ->
     # translation setting
     $translateProvider.useStaticFilesLoader do
         prefix: \/lang/
         suffix: \.json
     preferLang = window.localStorage[\lang] || \en-US
     $translateProvider.preferredLanguage preferLang
+
+    # config url routes
+    $routeProvider
+    .when \/profile/:username, action: \profile
+    .otherwise redirectTo: '', action: \home
 ]
 
 # global variables service

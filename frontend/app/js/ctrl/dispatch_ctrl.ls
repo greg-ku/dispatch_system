@@ -1,4 +1,5 @@
-dispatchApp.controller \dispatchCtrl, [\$scope, \$modal, \$http, \globalVars, \loginInfo, ($scope, $modal, $http, globalVars, loginInfo) ->
+dispatchApp.controller \dispatchCtrl, [\$scope, \$modal, \$http, \$route, \globalVars, \loginInfo,
+($scope, $modal, $http, $route, globalVars, loginInfo) ->
     api = globalVars.API
 
     $scope.openLoginModal = ->
@@ -44,4 +45,10 @@ dispatchApp.controller \dispatchCtrl, [\$scope, \$modal, \$http, \globalVars, \l
                 $scope.updateLoginInfo!
             # TODO: handle logout failed
         , (responseObj) ->
+
+    $scope.currentUrl = \home #default url
+    $scope.$on \$routeChangeSuccess, ->
+        switch $route.current.action
+        case \home then $scope.currentUrl = \home
+        case \profile then $scope.currentUrl = \profile
 ]
