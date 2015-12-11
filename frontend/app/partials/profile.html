@@ -18,7 +18,7 @@
             </div>
             <div>
                 <span class="glyphicon glyphicon-time"></span>
-                Joined on {{ userInfo.createDate }}
+                Joined on {{ userInfo.createDate | dateobj: "MM/dd/yyyy" }}
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 templates = angular.module \templates, []
 
-dispatchApp = angular.module \dispatchApp, [\ngRoute, \ui.bootstrap, \templates, \pascalprecht.translate]
+dispatchApp = angular.module \dispatchApp, [\ngRoute, \ui.bootstrap, \templates, \pascalprecht.translate, \date-obj-filter]
 
 dispatchApp.config [\$routeProvider, \$translateProvider, ($routeProvider, $translateProvider) ->
     # translation setting
