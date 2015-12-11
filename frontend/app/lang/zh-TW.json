@@ -21,5 +21,7 @@
     "E_MAIL": "信箱",
     "LANGUAGE": "語言",
     "ENGLISH": "English",
-    "TRAD_CHINESE": "繁體中文"
+    "TRAD_CHINESE": "繁體中文",
+
+    "UPLOAD_PICTURE": "上傳圖片"
 }

@@ -23,3 +23,16 @@ a:hover, a:focus {
         }
     }
 }
+
+
+// profile template
+#profile-head-shot {
+    border-radius: 5px;
+    height: 200px;
+}
+
+.upload-headshot-input {
+    .hidden-file-input {
+        display: none;
+    }
+}

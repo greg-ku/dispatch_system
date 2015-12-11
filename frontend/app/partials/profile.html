@@ -1,7 +1,25 @@
-<div class="container">
+<div class="container" ng-controller="profileCtrl">
     <div class="row">
-        <div class="col-md-12">
-            <div>testing</div>
+        <div class="col-md-3">
+            <div id="profile-head-shot" ><img src=""></div>
+            <a href="" class="btn btn-default upload-headshot-input" ng-if="isCurrentUser">
+                {{ "UPLOAD_PICTURE" | translate }}
+                <input type="file" class="hidden-file-input">
+            </a>
+        </div>
+        <div class="col-md-9">
+            <div ng-if="userInfo.type == 'PERSONAL'"><h1>{{ userInfo.profile.firstName + ' ' + userInfo.profile.lastName }}</h1></div>
+            <div ng-if="userInfo.type == 'COMPANY'"><h1>{{ userInfo.profile.comapnyName }}</h1></div>
+            <div><h3>{{ userInfo.username }}</h3></div>
+            <hr>
+            <div>
+                <span class="glyphicon glyphicon-envelope"></span>
+                <a href="mailto:{{ userInfo.email }}">{{ userInfo.email }}</a>
+            </div>
+            <div>
+                <span class="glyphicon glyphicon-time"></span>
+                Joined on {{ userInfo.createDate }}
+            </div>
         </div>
     </div>
 </div>

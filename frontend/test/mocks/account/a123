@@ -1,0 +1,12 @@
+{
+    "code": 200,
+    "userInfo": {
+        "type": "COMPANY",
+        "username": "a123",
+        "email": "gregtest@gmail.com",
+        "_id": "notsure",
+        "profile": {
+            "comapnyName": "STUPID Company"
+        }
+    }
+}

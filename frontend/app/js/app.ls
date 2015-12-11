@@ -24,6 +24,7 @@ dispatchApp.factory \globalVars, ->
 
     vars.API.account =
         create: prefix + \/account
+        fetch: prefix + \/account
         login: prefix + \/account/login
         logout: prefix + \/account/logout
         available: prefix + \/account/available

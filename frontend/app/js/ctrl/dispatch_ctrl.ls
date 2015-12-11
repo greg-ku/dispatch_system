@@ -50,5 +50,10 @@ dispatchApp.controller \dispatchCtrl, [\$scope, \$modal, \$http, \$route, \globa
     $scope.$on \$routeChangeSuccess, ->
         switch $route.current.action
         case \home then $scope.currentUrl = \home
-        case \profile then $scope.currentUrl = \profile
+        case \profile
+            if $scope.currentUrl != \profile
+                $scope.currentUrl = \profile
+            else
+                $scope.$broadcast \refreshProfile
+
 ]
