@@ -23,14 +23,8 @@ api.route \/
         if err then res.json err else res.json accs
 .post (req, res) ->
     # create a new account
-    acc = {}
-    acc.type = req.body.type
-    acc.username = req.body.username
-    acc.firstName = req.body.firstName if acc.type == \PERSONAL
-    acc.lastName = req.body.lastName if acc.type == \PERSONAL
-    acc.companyName = req.body.company if acc.type == \COMPANY
-    acc.email = req.body.email
-    acc.password = encrypt req.body.password
+    acc = req.body
+    acc.password = encrypt req.body.password if req.body.password
 
     Account.createAccount acc, (err) ->
         if err
@@ -38,8 +32,7 @@ api.route \/
         else res.json code: CODE.S_OK
 
 api.post \/login, (req, res) ->
-    acc = {}
-    acc.username = req.body.username
+    acc = req.body
     acc.password = encrypt req.body.password
 
     Account.login acc, (err, userInfo) ->
@@ -50,15 +43,8 @@ api.post \/login, (req, res) ->
             res.json code: CODE.S_OK, userInfo: userInfo
 
 api.post \/logout, middleware.loginRequired, (req, res) ->
-    acc = {}
-    acc.username = req.session.loggedInUsername
-
-    Account.logout acc, (err) ->
-        if err
-        then res.json err 
-        else
-            delete req.session.loggedInUsername
-            res.json code: CODE.S_OK
+    delete req.session.loggedInUsername
+    res.json code: CODE.S_OK
 
 api.get \/available, (req, res) ->
     Account.isAccountAvailable req.query.username, (err) ->

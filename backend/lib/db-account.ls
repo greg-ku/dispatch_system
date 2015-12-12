@@ -11,9 +11,7 @@ ProfileSchema = new Schema {
     firstName: String
     lastName: String
     companyName: String
-    headShot:
-        url: String
-        img: { data: Buffer, contentType: String }
+    headShotUrl: String
 }
 
 AccountSchema = new Schema {
@@ -48,9 +46,9 @@ Account = module.exports = mongoose.model \Account, AccountSchema
 Account.createAccount = (acc, callback) ->
     # check parameter existence
     if (acc.type != \PERSONAL and acc.type != \COMPANY
-        or acc.type == \PERSONAL and (acc.firstName == undefined or acc.lastName == undefined)
-        or acc.type == \COMPANY and acc.companyName == undefined
-        or acc.username == undefined or acc.email == undefined or acc.password == undefined)
+        or acc.type == \PERSONAL and (!acc.firstName or !acc.lastName)
+        or acc.type == \COMPANY and !acc.companyName
+        or !acc.username or !acc.email or !acc.password)
         callback code: CODE.E_FAIL, msg: 'incorrect parameter'
         return
 
