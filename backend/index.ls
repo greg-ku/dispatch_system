@@ -2,11 +2,9 @@
 require! \express
 require! \cookie-session
 require! \body-parser
+require! \mongoose
 
 app = express!
-
-# db
-require \./lib/db
 
 # routes
 ROUTES_DIR = \./routes
@@ -28,6 +26,9 @@ case "development"
 
 # APIs
 app.use \/api/account, account
+
+# connect to database
+mongoose.connect \mongodb://localhost/dispatch-dev
 
 # bootstrap server
 app.listen 8080
