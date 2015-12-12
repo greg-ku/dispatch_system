@@ -36,21 +36,18 @@ api.post \/login, (req, res) ->
     acc.password = encrypt req.body.password
 
     Account.login acc, (err, userInfo) ->
-        if err
-        then res.json err 
-        else
-            req.session.loggedInUsername = userInfo.username
-            res.json code: CODE.S_OK, userInfo: userInfo
+        return res.json err if err
+        req.session.loggedInUsername = userInfo.username
+        res.json code: CODE.S_OK, userInfo: userInfo
 
 api.post \/logout, middleware.loginRequired, (req, res) ->
     delete req.session.loggedInUsername
     res.json code: CODE.S_OK
 
 api.get \/available, (req, res) ->
-    Account.isAccountAvailable req.query.username, (err) ->
-        if err
-        then res.json err
-        else res.json code: CODE.S_OK
+    Account.getAccountByName req.query.username, (err, userInfo) ->
+        return res.json err if err
+        res.json code: CODE.S_OK, available: if userInfo then false else true
 
 api.get \/current, middleware.loginRequired, (req, res) ->
     Account.getAccountByName req.session.loggedInUsername, (err, userInfo) ->

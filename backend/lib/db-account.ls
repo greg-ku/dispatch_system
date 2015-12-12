@@ -87,40 +87,17 @@ Account.login = (acc, callback) ->
         else
             callback null, accs[0]
 
-Account.logout = (acc, callback) ->
-    Account.find username: acc.username, (err, accs) ->
-        if err
-            return callback err
-
-        if accs.length == 1
-        then callback!
-        else callback code: CODE.E_FAIL, msg: 'logout failed'
-
-Account.isAccountAvailable = (username, callback) ->
-    # check parameter existence
-    if !username
-        return callback code: CODE.E_INVALID_ARGUMENT
-
-    Account.find username: username, (err, accs) ->
-        if err
-            return callback err
-
-        if accs.length == 1
-        then callback null, available: false, code: CODE.S_OK
-        else callback null, available: true, code: CODE.S_OK
-
 Account.getAccountByName = (username, callback) ->
     # check parameter existence
     if !username
-        return callback code: CODE.E_INVALID_ARGUMENT
+        return callback code: CODE.E_INVALID_ARGUMENT, msg: 'incorrect parameter'
 
     Account.find username: username, (err, accs) ->
-        if err
-            return callback err
+        return callback err if err
 
         if accs.length == 1
         then callback null, accs[0]
-        else callback code: CODE.E_FAIL
+        else callback!
 
 Account.getAccounts = (type, conditions, options, callback) ->
     conditions = conditions || {}
