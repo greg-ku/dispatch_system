@@ -76,7 +76,7 @@ Account.createAccount = (acc, callback) ->
 
 Account.login = (acc, callback) ->
     # check parameter existence
-    if acc.username == undefined or acc.password == undefined
+    if !acc.username or !acc.password
         return callback code: CODE.E_FAIL, msg: 'incorrect parameter'
 
     Account.find username: acc.username, (err, accs) ->
@@ -98,7 +98,7 @@ Account.logout = (acc, callback) ->
 
 Account.isAccountAvailable = (username, callback) ->
     # check parameter existence
-    if username == undefined
+    if !username
         return callback code: CODE.E_INVALID_ARGUMENT
 
     Account.find username: username, (err, accs) ->
@@ -111,7 +111,7 @@ Account.isAccountAvailable = (username, callback) ->
 
 Account.getAccountByName = (username, callback) ->
     # check parameter existence
-    if username == undefined
+    if !username
         return callback code: CODE.E_INVALID_ARGUMENT
 
     Account.find username: username, (err, accs) ->
