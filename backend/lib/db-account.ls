@@ -7,11 +7,16 @@ MAIN_DIR = path.dirname require.main.filename
 globalVars = require MAIN_DIR + \/lib/global-vars
 CODE = globalVars.STATUS_CODE
 
+HeadShotSchema = new Schema {
+    content: Buffer
+    contentType: String
+}
+
 ProfileSchema = new Schema {
     firstName: String
     lastName: String
     companyName: String
-    headShotUrl: String
+    headshotUrl: String
 }
 
 AccountSchema = new Schema {
@@ -40,6 +45,7 @@ CaseSchema = new Schema {
 
 mongoose.model \Profile, ProfileSchema
 mongoose.model \Case, CaseSchema
+Headshot = mongoose.model \Headshot, HeadShotSchema
 Account = module.exports = mongoose.model \Account, AccountSchema
 
 # public functions
@@ -109,3 +115,28 @@ Account.getAccounts = (type, conditions, options, callback) ->
 
     Account.find {}, null, skip: options.skip, limit: 10, (err, accs) ->
         if err then callback err else callback null, accs
+
+# headshot functions
+Account.saveHeadshot = (img, accId, callback) ->
+    return callback code: CODE.E_FAIL, msg: 'empty image' if !img
+    return callback code: CODE.E_FAIL, msg: 'empty account id' if !accId
+
+    Account.findById accId, (err, acc) ->
+        return callback err if err
+        new Headshot do
+            content: img.buffer
+            contentType: img.mimetype
+        .save (err, headshot) ->
+            return callback err if err
+            # set headshot url
+            acc.profile.headshotUrl = \/api/account/headshot/ + headshot._id
+            err <- acc.save
+            callback if err then err else null
+
+Account.getHeadshot = (id, callback) ->
+    return callback code: CODE.E_FAIL, msg: 'empty account id' if !id
+
+    Headshot.findById id, (err, headshot) ->
+        if err
+        then callback err
+        else callback null, headshot

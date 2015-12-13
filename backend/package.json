@@ -14,8 +14,9 @@
   },
   "dependencies": {
     "body-parser": "^1.14.1",
+    "cookie-session": "^2.0.0-alpha.1",
     "express": "^4.13.3",
     "mongoose": "^4.2.5",
-    "cookie-session": "^2.0.0-alpha.1"
+    "multer": "^1.1.0"
   }
 }
