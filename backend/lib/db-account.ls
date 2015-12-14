@@ -122,8 +122,8 @@ Account.saveHeadshot = (img, accId, callback) ->
     return callback code: CODE.E_FAIL, msg: 'empty account id' if !accId
 
     Account.findById accId, (err, acc) ->
-        # TODO: handle account not found
         return callback err if err
+        return callback code: CODE.E_FAIL, msg: 'account not found' if !acc
         new Headshot do
             content: img.buffer
             contentType: img.mimetype
@@ -149,7 +149,6 @@ Account.getHeadshot = (id, callback) ->
     return callback code: CODE.E_FAIL, msg: 'empty account id' if !id
 
     Headshot.findById id, (err, headshot) ->
-        # TODO: handle headshot not found
-        if err
-        then callback err
-        else callback null, headshot
+        return callback err if err
+        return callback code: CODE.E_FAIL, msg: 'headshot not found' if !headshot
+        callback null, headshot
