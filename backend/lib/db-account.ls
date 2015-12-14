@@ -1,11 +1,16 @@
 # 3rd party module
-require! mongoose
-Schema = mongoose.Schema
+require! \mongoose
+require! \crypto
 require! \path
 # self module
 MAIN_DIR = path.dirname require.main.filename
 globalVars = require MAIN_DIR + \/lib/global-vars
 CODE = globalVars.STATUS_CODE
+
+Schema = mongoose.Schema
+
+# password encrypt function
+encrypt = (pw) -> crypto.createHmac \sha256, pw .digest \hex
 
 HeadShotSchema = new Schema {
     content: Buffer
@@ -69,7 +74,7 @@ Account.createAccount = (acc, callback) ->
             type: acc.type
             username: acc.username
             email: acc.email
-            password: acc.password
+            password: encrypt acc.password
             profile: 
                 firstName: acc.firstName
                 lastName: acc.lastName
@@ -88,7 +93,7 @@ Account.login = (acc, callback) ->
     Account.find username: acc.username, (err, accs) ->
         if err
             callback err
-        else if accs.length != 1 or accs[0]?.password != acc.password
+        else if accs.length != 1 or accs[0]?.password != encrypt acc.password
             callback code: CODE.E_INVALID_ARGUMENT, msg: 'incorrect username or password'
         else
             callback null, accs[0]

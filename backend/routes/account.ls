@@ -1,6 +1,5 @@
 # 3rd party module
 require! \express
-require! \crypto
 require! \mongoose
 require! \path
 require! \multer
@@ -20,9 +19,6 @@ upload = multer do
             limiits:
                 fileSize: 3000 # bytes
 
-# password encrypt function
-encrypt = (pw) -> crypto.createHmac \sha256, pw .digest \hex
-
 api.route \/
 .get middleware.loginRequired, (req, res) ->
     # list accounts, test api, should not open
@@ -30,19 +26,13 @@ api.route \/
         if err then res.json err else res.json accs
 .post (req, res) ->
     # create a new account
-    acc = req.body
-    acc.password = encrypt req.body.password if req.body.password
-
-    Account.createAccount acc, (err) ->
+    Account.createAccount req.body, (err) ->
         if err
         then res.json err
         else res.json code: CODE.S_OK
 
 api.post \/login, (req, res) ->
-    acc = req.body
-    acc.password = encrypt req.body.password
-
-    Account.login acc, (err, userInfo) ->
+    Account.login req.body, (err, userInfo) ->
         return res.json err if err
         req.session.loggedInUsername = userInfo.username
         res.json code: CODE.S_OK, userInfo: userInfo
