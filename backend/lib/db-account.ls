@@ -122,6 +122,7 @@ Account.saveHeadshot = (img, accId, callback) ->
     return callback code: CODE.E_FAIL, msg: 'empty account id' if !accId
 
     Account.findById accId, (err, acc) ->
+        # TODO: handle account not found
         return callback err if err
         new Headshot do
             content: img.buffer
@@ -133,10 +134,22 @@ Account.saveHeadshot = (img, accId, callback) ->
             err <- acc.save
             callback if err then err else null
 
+Account.updateHeadshot = (img, imgId, callback) ->
+    return callback code: CODE.E_FAIL, msg: 'incorrect parameter' if !img or !imgId
+    Headshot.findById imgId, (err, headshot) ->
+        return callback err if err
+        return callback code: CODE.E_FAIL, msg: 'headshot not found' if !headshot
+        headshot.content = img.buffer
+        headshot.contentType = img.mimetype
+        err, savedImg <- headshot.save
+        return callback err if err
+        callback null, savedImg._id
+
 Account.getHeadshot = (id, callback) ->
     return callback code: CODE.E_FAIL, msg: 'empty account id' if !id
 
     Headshot.findById id, (err, headshot) ->
+        # TODO: handle headshot not found
         if err
         then callback err
         else callback null, headshot
