@@ -21,7 +21,8 @@
                     <li ng-if="!loggedIn"><a href="" ng-click="openLoginModal();">{{ "LOGIN" | translate }}</a></li>
                     <li ng-if="loggedIn">
                         <a href="#/profile/{{userInfo.username}}">
-                            <span class="glyphicon glyphicon-user"></span>
+                            <span ng-if="!userInfo.profile.headshotUrl" class="glyphicon glyphicon-user"></span>
+                            <img ng-if="userInfo.profile.headshotUrl" id="header-headshot-icon" ng-src="{{userInfo.profile.headshotUrl}}">
                             {{ userInfo.username }}
                         </a>
                     </li>
