@@ -43,6 +43,7 @@ dispatchApp.controller \dispatchCtrl, [\$scope, \$modal, \$http, \$route, \globa
             if responseObj.data.code == 200
                 loginInfo.setLoggedIn false, null
                 $scope.updateLoginInfo!
+                location.hash = \#
             # TODO: handle logout failed
         , (responseObj) ->
 
