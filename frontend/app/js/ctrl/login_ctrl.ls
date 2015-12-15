@@ -24,7 +24,7 @@ dispatchApp.controller \loginCtrl, [\$scope, \$http, \$modalInstance, \globalVar
             res = responseObj.data
             if res.code == 200
                 loginInfo.setLoggedIn true, res.userInfo
-                $scope.$emit \loggedIn
+                $scope.$emit \loginInfoChanged
                 $scope.close!
             else
                 $scope.setErrorMsg res.errTarget, res.msg

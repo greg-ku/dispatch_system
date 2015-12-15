@@ -26,7 +26,7 @@ dispatchApp.controller \dispatchCtrl, [\$scope, \$modal, \$http, \$route, \globa
         $scope.userInfo = loginInfo.userInfo
 
     # listen events
-    $scope.$on \loggedIn, (event) ->
+    $scope.$on \loginInfoChanged, (event) ->
         $scope.updateLoginInfo!
 
     # fetch current user info
@@ -56,5 +56,4 @@ dispatchApp.controller \dispatchCtrl, [\$scope, \$modal, \$http, \$route, \globa
                 $scope.currentUrl = \profile
             else
                 $scope.$broadcast \refreshProfile
-
 ]

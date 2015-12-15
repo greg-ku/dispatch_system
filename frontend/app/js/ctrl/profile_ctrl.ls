@@ -43,6 +43,8 @@ dispatchApp.controller \profileCtrl, [\$scope, \$http, \$routeParams, \globalVar
             res = responseObj.data
             if res.code == 200
                 $scope.userInfo.profile.headshotUrl = api.account.getHeadshot + \/ + res.id + \? + Date.now!
+                loginInfo.setLoggedIn true, $scope.userInfo
+                $scope.$emit \loginInfoChanged
         , (responseObj) ->
             # error handle
 
