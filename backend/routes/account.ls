@@ -31,6 +31,20 @@ api.route \/
         then res.json err
         else res.json code: CODE.S_OK
 
+api.get \/current, middleware.loginRequired, (req, res) ->
+    Account.getAccountByName req.session.loggedInUsername, (err, userInfo) ->
+        if err
+        then res.json err
+        else res.json code: CODE.S_OK, userInfo: userInfo
+
+api.route \/:username
+.get middleware.loginRequired, (req, res) ->
+    # get account by username
+    Account.getAccountByName req.params.username, (err, userInfo) ->
+        if err
+        then res.json err
+        else res.json code: CODE.S_OK, userInfo: userInfo
+
 api.post \/login, (req, res) ->
     Account.login req.body, (err, userInfo) ->
         return res.json err if err
@@ -45,12 +59,6 @@ api.get \/available, (req, res) ->
     Account.getAccountByName req.query.username, (err, userInfo) ->
         return res.json err if err
         res.json code: CODE.S_OK, available: if userInfo then false else true
-
-api.get \/current, middleware.loginRequired, (req, res) ->
-    Account.getAccountByName req.session.loggedInUsername, (err, userInfo) ->
-        if err
-        then res.json err
-        else res.json code: CODE.S_OK, userInfo: userInfo
 
 # headshot routes
 api.route \/headshot/:id

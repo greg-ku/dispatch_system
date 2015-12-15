@@ -129,6 +129,7 @@ Account.saveHeadshot = (img, accId, callback) ->
     Account.findById accId, (err, acc) ->
         return callback err if err
         return callback code: CODE.E_FAIL, msg: 'account not found' if !acc
+        return callback code: CODE.E_FAIL, msg: 'already had headshot' if acc.profile.headshotUrl
         new Headshot do
             content: img.buffer
             contentType: img.mimetype
