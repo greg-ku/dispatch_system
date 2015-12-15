@@ -1,4 +1,4 @@
-    require! \gulp
+require! \gulp
 require! \gulp-util
 require! \gulp-bower-files
 require! \gulp-filter
