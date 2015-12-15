@@ -28,7 +28,7 @@ AccountSchema = new Schema {
     type: String
     username: String
     password: String
-    eamil: String
+    email: String
     profile: ProfileSchema
     ownCases: [Schema.Types.ObjectId]
     createDate: { type: Date, default: Date.now }
@@ -138,7 +138,9 @@ Account.saveHeadshot = (img, accId, callback) ->
             # set headshot url
             acc.profile.headshotUrl = \/api/account/headshot/ + headshot._id
             err <- acc.save
-            callback if err then err else null
+            if err
+            then callback err
+            else callback null, headshot._id
 
 Account.updateHeadshot = (img, imgId, callback) ->
     return callback code: CODE.E_FAIL, msg: 'incorrect parameter' if !img or !imgId

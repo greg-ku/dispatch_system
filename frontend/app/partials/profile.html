@@ -1,11 +1,9 @@
 <div class="container" ng-controller="profileCtrl">
     <div class="row">
         <div class="col-md-3">
-            <div id="profile-head-shot" ><img src=""></div>
-            <a href="" class="btn btn-default upload-headshot-input" ng-if="isCurrentUser">
-                {{ "UPLOAD_PICTURE" | translate }}
-                <input type="file" class="hidden-file-input">
-            </a>
+            <div id="profile-headshot" ><img class="headshot" ng-src="{{userInfo.profile.headshotUrl}}"></div>
+            <!-- <div id="profile-headshot" ><img class="headshot" ng-src="{{userInfo.profile.headshotUrl}}"></div> -->
+            <file-input on-change="uploadHeadshot(file)">{{ "UPLOAD_PICTURE" | translate }}</file-input>
         </div>
         <div class="col-md-9">
             <div ng-if="userInfo.type == 'PERSONAL'"><h1>{{ userInfo.profile.firstName + ' ' + userInfo.profile.lastName }}</h1></div>

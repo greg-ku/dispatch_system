@@ -37,6 +37,11 @@ api.get \/current, middleware.loginRequired, (req, res) ->
         then res.json err
         else res.json code: CODE.S_OK, userInfo: userInfo
 
+api.get \/available, (req, res) ->
+    Account.getAccountByName req.query.username, (err, userInfo) ->
+        return res.json err if err
+        res.json code: CODE.S_OK, available: if userInfo then false else true
+
 api.route \/:username
 .get middleware.loginRequired, (req, res) ->
     # get account by username
@@ -55,11 +60,6 @@ api.post \/logout, middleware.loginRequired, (req, res) ->
     delete req.session.loggedInUsername
     res.json code: CODE.S_OK
 
-api.get \/available, (req, res) ->
-    Account.getAccountByName req.query.username, (err, userInfo) ->
-        return res.json err if err
-        res.json code: CODE.S_OK, available: if userInfo then false else true
-
 # headshot routes
 api.route \/headshot/:id
 .get (req, res) ->
@@ -75,9 +75,9 @@ api.route \/headshot/:id
 # TODO: makes it only available for logged in user himself
 api.post \/headshot, middleware.loginRequired, upload.single(\headshot), (req, res) ->
     # upload and store the headshot image
-    Account.saveHeadshot req.file, req.body.id, (err) ->
+    Account.saveHeadshot req.file, req.body.id, (err, id) ->
         return res.json err if err
-        res.json code: CODE.S_OK
+        res.json code: CODE.S_OK, id: id
 
 
 module.exports = api

@@ -1,6 +1,6 @@
 templates = angular.module \templates, []
 
-dispatchApp = angular.module \dispatchApp, [\ngRoute, \ui.bootstrap, \templates, \pascalprecht.translate, \date-obj-filter]
+dispatchApp = angular.module \dispatchApp, [\ngRoute, \ui.bootstrap, \templates, \pascalprecht.translate, \date-obj-filter, \file-input-directive]
 
 dispatchApp.config [\$routeProvider, \$translateProvider, ($routeProvider, $translateProvider) ->
     # translation setting
@@ -29,6 +29,8 @@ dispatchApp.factory \globalVars, ->
         logout: prefix + \/account/logout
         available: prefix + \/account/available
         getCurrent: prefix + \/account/current
+        getHeadshot: prefix + \/account/headshot
+        uploadHeadshot: prefix + \/account/headshot
 
     vars.PROMPT =
         NAME_USED: \NAME_USED

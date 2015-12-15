@@ -26,13 +26,23 @@ a:hover, a:focus {
 
 
 // profile template
-#profile-head-shot {
+#profile-headshot {
     border-radius: 5px;
     height: 200px;
+    overflow: hidden;
+    background-color: rgb(200, 200, 200);
+    margin-bottom: 5px;
+
+    > img {
+        display: block;
+        margin: auto;
+        height: 100%;
+        max-width: 100%;
+    }
 }
 
 .upload-headshot-input {
-    .hidden-file-input {
+    + .hidden-file-input {
         display: none;
     }
 }

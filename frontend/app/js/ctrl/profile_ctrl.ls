@@ -25,6 +25,27 @@ dispatchApp.controller \profileCtrl, [\$scope, \$http, \$routeParams, \globalVar
             # error handle
             eraseProfile!
 
+    $scope.uploadHeadshot = (file) ->
+        data = new FormData!
+        data.append \headshot, file
+
+        if $scope.userInfo.profile.headshotUrl
+        then # update
+            request = $http.put
+            url = api.account.uploadHeadshot + \/ + $scope.userInfo.profile.headshotUrl.split \/ .pop()
+        else # create new one
+            request = $http.post
+            data.append \id, $scope.userInfo._id
+            url = api.account.uploadHeadshot
+
+        request url, data, headers: { 'Content-Type': undefined }
+        .then (responseObj) ->
+            res = responseObj.data
+            if res.code == 200
+                $scope.userInfo.profile.headshotUrl = api.account.getHeadshot + \/ + res.id + \? + Date.now!
+        , (responseObj) ->
+            # error handle
+
     # listening events
     $scope.$on \refreshProfile, (event) -> fetchProfile!
 
