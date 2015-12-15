@@ -86,14 +86,14 @@ dispatchApp.controller \registerCtrl, [\$scope, \$modalInstance, \$http, \global
             if !acc.firstName or !acc.lastName
                 $scope.setErrorMsg \realname, PROMPT.SHOULD_NOT_EMPTY
                 return false
-            if acc.firstName.length > LENGTH.GENERAL or acc.lastName.length > LENGTH.GENERAL
+            if acc.firstName.length > $scope.LENGTH.GENERAL or acc.lastName.length > $scope.LENGTH.GENERAL
                 $scope.setErrorMsg \realname, PROMPT.CHAR_TOO_LONG
                 return false
         else if $scope.regType == \COMPANY
             if !acc.companyName
                 $scope.setErrorMsg \company, PROMPT.SHOULD_NOT_EMPTY
                 return false
-            if acc.firstName.length > LENGTH.GENERAL or acc.lastName.length > LENGTH.GENERAL
+            if acc.firstName.length > $scope.LENGTH.GENERAL or acc.lastName.length > $scope.LENGTH.GENERAL
                 $scope.setErrorMsg \company, PROMPT.CHAR_TOO_LONG
                 return false
 
