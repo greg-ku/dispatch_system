@@ -5,11 +5,11 @@ require! \path
 require! \multer
 # self module
 MAIN_DIR = path.dirname require.main.filename
-mw = require MAIN_DIR + \/lib/dispatch-middleware
-globalVars = require MAIN_DIR + \/lib/global-vars
+mw = require "#{MAIN_DIR}/lib/dispatch-middleware"
+globalVars = require "#{MAIN_DIR}/lib/global-vars"
 CODE = globalVars.STATUS_CODE
 # self db module
-Case = require MAIN_DIR + \/lib/db-case
+Case = require "#{MAIN_DIR}/lib/db-case"
 
 api = express.Router!
 

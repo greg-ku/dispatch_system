@@ -3,9 +3,9 @@ require! \mongoose
 require! \path
 # self module
 MAIN_DIR = path.dirname require.main.filename
-globalVars = require MAIN_DIR + \/lib/global-vars
+globalVars = require "#{MAIN_DIR}/lib/global-vars"
 # self db module
-Account = require MAIN_DIR + \/lib/db-account
+Account = require "#{MAIN_DIR}/lib/db-account"
 
 CODE = globalVars.STATUS_CODE
 Schema = mongoose.Schema

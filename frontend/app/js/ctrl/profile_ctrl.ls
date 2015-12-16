@@ -13,7 +13,7 @@ dispatchApp.controller \profileCtrl, [\$scope, \$http, \$routeParams, \globalVar
         $scope.isCurrentUser = false
 
     fetchProfile = ->
-        $http.get api.account.fetch + \/ + $routeParams.username,
+        $http.get "#{api.account.fetch}/#{$routeParams.username}",
         .then (responseObj) ->
             res = responseObj.data
             if res.code == 200
@@ -32,7 +32,7 @@ dispatchApp.controller \profileCtrl, [\$scope, \$http, \$routeParams, \globalVar
         if $scope.userInfo.profile.headshotUrl
         then # update
             request = $http.put
-            url = api.account.uploadHeadshot + \/ + $scope.userInfo.profile.headshotUrl.split \/ .pop()
+            url = "#{api.account.uploadHeadshot}/" + $scope.userInfo.profile.headshotUrl.split \/ .pop()
         else # create new one
             request = $http.post
             url = api.account.uploadHeadshot
@@ -41,7 +41,7 @@ dispatchApp.controller \profileCtrl, [\$scope, \$http, \$routeParams, \globalVar
         .then (responseObj) ->
             res = responseObj.data
             if res.code == 200
-                $scope.userInfo.profile.headshotUrl = api.account.getHeadshot + \/ + res.id + \? + Date.now!
+                $scope.userInfo.profile.headshotUrl = "#{api.account.getHeadshot}/#{res.id}?" + Date.now!
                 loginInfo.setLoggedIn true, $scope.userInfo
                 $scope.$emit \loginInfoChanged
         , (responseObj) ->
