@@ -18,7 +18,7 @@ dispatchApp.controller \profileCtrl, [\$scope, \$http, \$routeParams, \globalVar
             res = responseObj.data
             if res.code == 200
                 $scope.userInfo = res.userInfo
-                $scope.isCurrentUser = true if res.userInfo.username == loginInfo.getUserInfo().username
+                $scope.isCurrentUser = if res.userInfo.username == loginInfo.getUserInfo().username then true else false
             else
                 eraseProfile!
         , (responseObj) ->
@@ -35,7 +35,6 @@ dispatchApp.controller \profileCtrl, [\$scope, \$http, \$routeParams, \globalVar
             url = api.account.uploadHeadshot + \/ + $scope.userInfo.profile.headshotUrl.split \/ .pop()
         else # create new one
             request = $http.post
-            data.append \id, $scope.userInfo._id
             url = api.account.uploadHeadshot
 
         request url, data, headers: { 'Content-Type': undefined }

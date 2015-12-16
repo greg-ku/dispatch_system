@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-3">
             <div id="profile-headshot" ><img ng-src="{{userInfo.profile.headshotUrl}}"></div>
-            <file-input on-change="uploadHeadshot(file)">{{ "UPLOAD_PICTURE" | translate }}</file-input>
+            <file-input ng-if="isCurrentUser" on-change="uploadHeadshot(file)">{{ "UPLOAD_PICTURE" | translate }}</file-input>
         </div>
         <div class="col-md-9">
             <div ng-if="userInfo.type == 'PERSONAL'"><h1>{{ userInfo.profile.firstName + ' ' + userInfo.profile.lastName }}</h1></div>

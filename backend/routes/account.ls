@@ -68,14 +68,20 @@ api.route \/headshot/:id
         res.type headshot.contentType .send headshot.content
 .put middleware.loginRequired, upload.single(\headshot), (req, res) ->
     # upload and update the headshot image
-    Account.updateHeadshot req.file, req.params.id, (err, id) ->
+    username = req.session.loggedInUsername
+    Account.updateHeadshot req.file, req.params.id, username, (err, id) ->
         return res.json err if err
         res.json code: CODE.S_OK, id: id
+.delete middleware.loginRequired, (req, res) ->
+    # delete the headshot image
+    username = req.session.loggedInUsername
+    Account.deleteHeadshot req.params.id, username, (err) ->
+        return res.json err if err
+        res.json code: CODE.S_OK
 
-# TODO: makes it only available for logged in user himself
 api.post \/headshot, middleware.loginRequired, upload.single(\headshot), (req, res) ->
     # upload and store the headshot image
-    Account.saveHeadshot req.file, req.body.id, (err, id) ->
+    Account.saveHeadshot req.file, req.session.loggedInUsername, (err, id) ->
         return res.json err if err
         res.json code: CODE.S_OK, id: id
 

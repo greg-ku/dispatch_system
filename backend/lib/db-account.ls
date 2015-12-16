@@ -12,9 +12,10 @@ Schema = mongoose.Schema
 # password encrypt function
 encrypt = (pw) -> crypto.createHmac \sha256, pw .digest \hex
 
-HeadShotSchema = new Schema {
+HeadshotSchema = new Schema {
     content: Buffer
     contentType: String
+    owner: Schema.Types.ObjectId
 }
 
 ProfileSchema = new Schema {
@@ -50,7 +51,7 @@ CaseSchema = new Schema {
 
 mongoose.model \Profile, ProfileSchema
 mongoose.model \Case, CaseSchema
-Headshot = mongoose.model \Headshot, HeadShotSchema
+Headshot = mongoose.model \Headshot, HeadshotSchema
 Account = module.exports = mongoose.model \Account, AccountSchema
 
 # public functions
@@ -65,10 +66,8 @@ Account.createAccount = (acc, callback) ->
 
     # TODO: one email only able to register one account
     Account.find username: acc.username, (err, accs) ->
-        if err 
-            return callback err
-        if accs.length
-            return callback code: CODE.E_FAIL, msg: 'account name exist'
+        return callback err if err
+        return callback code: CODE.E_FAIL, msg: 'account name exist' if accs.length
 
         new Account {
             type: acc.type
@@ -122,36 +121,55 @@ Account.getAccounts = (type, conditions, options, callback) ->
         if err then callback err else callback null, accs
 
 # headshot functions
-Account.saveHeadshot = (img, accId, callback) ->
+Account.saveHeadshot = (img, username, callback) ->
     return callback code: CODE.E_FAIL, msg: 'empty image' if !img
-    return callback code: CODE.E_FAIL, msg: 'empty account id' if !accId
+    return callback code: CODE.E_FAIL, msg: 'empty username' if !username
 
-    Account.findById accId, (err, acc) ->
+    Account.find username: username, (err, accs) ->
         return callback err if err
-        return callback code: CODE.E_FAIL, msg: 'account not found' if !acc
-        return callback code: CODE.E_FAIL, msg: 'already had headshot' if acc.profile.headshotUrl
+        return callback code: CODE.E_FAIL, msg: 'account not found' if !accs.length
+        return callback code: CODE.E_FAIL, msg: 'already had headshot' if accs[0].profile.headshotUrl
         new Headshot do
             content: img.buffer
             contentType: img.mimetype
+            owner: accs[0]._id
         .save (err, headshot) ->
             return callback err if err
             # set headshot url
-            acc.profile.headshotUrl = \/api/account/headshot/ + headshot._id
-            err <- acc.save
+            accs[0].profile.headshotUrl = \/api/account/headshot/ + headshot._id
+            err <- accs[0].save
             if err
             then callback err
             else callback null, headshot._id
 
-Account.updateHeadshot = (img, imgId, callback) ->
-    return callback code: CODE.E_FAIL, msg: 'incorrect parameter' if !img or !imgId
+Account.updateHeadshot = (img, imgId, username, callback) ->
+    return callback code: CODE.E_FAIL, msg: 'incorrect parameter' if !img or !imgId or !username
     Headshot.findById imgId, (err, headshot) ->
         return callback err if err
         return callback code: CODE.E_FAIL, msg: 'headshot not found' if !headshot
+        err, acc <- Account.findById headshot.owner
+        return callback err if err
+        return callback code: CODE.E_FAIL, msg: 'not image\'s owner' if !acc or acc.username != username
         headshot.content = img.buffer
         headshot.contentType = img.mimetype
         err, savedImg <- headshot.save
         return callback err if err
         callback null, savedImg._id
+
+Account.deleteHeadshot = (id, username, callback) ->
+    return callback code: CODE.E_FAIL, msg: 'incorrect parameter' if !id or !username
+    Headshot.findById id, (err, headshot) ->
+        return callback err if err
+        return callback code: CODE.E_FAIL, msg: 'headshot not found' if !headshot
+        err, acc <- Account.findById headshot.owner
+        return callback err if err
+        return callback code: CODE.E_FAIL, msg: 'not image\'s owner' if !acc or acc.username != username
+        err, deletedImg <- headshot.remove
+        return callback err if err
+        acc.profile.headshotUrl = ''
+        err <- acc.save
+        return callback err if err
+        callback null, deletedImg
 
 Account.getHeadshot = (id, callback) ->
     return callback code: CODE.E_FAIL, msg: 'empty account id' if !id
