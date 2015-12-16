@@ -29,8 +29,10 @@ CaseSchema = new Schema {
     updated: { type: Date, default: Date.now }
 }
 
+# models
 Case = module.exports = mongoose.model \Case, CaseSchema
 
+# public functions
 Case.createCase = (caseIns, username, callback) ->
     # check parameter existence
     return callback code: CODE.E_FAIL, msg: 'incorrect parameter' if !caseIns or !username

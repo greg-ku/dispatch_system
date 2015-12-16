@@ -4,7 +4,7 @@ require! \crypto
 require! \path
 # self module
 MAIN_DIR = path.dirname require.main.filename
-globalVars = require MAIN_DIR + \/lib/global-vars
+globalVars = require "#{MAIN_DIR}/lib/global-vars"
 
 CODE = globalVars.STATUS_CODE
 Schema = mongoose.Schema
@@ -19,24 +19,21 @@ HeadshotSchema = new Schema {
     owner: Schema.Types.ObjectId
 }
 
-ProfileSchema = new Schema {
-    firstName: String
-    lastName: String
-    companyName: String
-    headshotUrl: String
-}
-
 AccountSchema = new Schema {
     type: String
     username: String
     password: String
     email: String
-    profile: ProfileSchema
+    profile:
+        firstName: String
+        lastName: String
+        companyName: String
+        headshotUrl: String
     ownCases: [Schema.Types.ObjectId]
     createDate: { type: Date, default: Date.now }
 }
 
-mongoose.model \Profile, ProfileSchema
+# models
 Headshot = mongoose.model \Headshot, HeadshotSchema
 Account = module.exports = mongoose.model \Account, AccountSchema
 
@@ -121,7 +118,7 @@ Account.saveHeadshot = (img, username, callback) ->
         .save (err, headshot) ->
             return callback err if err
             # set headshot url
-            accs[0].profile.headshotUrl = \/api/account/headshot/ + headshot._id
+            accs[0].profile.headshotUrl = "/api/account/headshot/#{headshot._id}"
             err <- accs[0].save
             if err
             then callback err
