@@ -32,6 +32,10 @@ dispatchApp.factory \globalVars, ->
         getHeadshot: prefix + \/account/headshot
         uploadHeadshot: prefix + \/account/headshot
 
+    vars.API.case =
+        createCase: prefix + \/case
+        getCases: prefix + \/case
+
     vars.PROMPT =
         NAME_USED: \NAME_USED
         INVALID_CHAR: \INVALID_CHAR

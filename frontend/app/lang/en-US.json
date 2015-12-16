@@ -9,6 +9,7 @@
     "PAY": "Pay",
     "POSITION": "Position",
     "DATE": "Date",
+    "MORE": "More",
     "CONFIRM": "Confirm",
     "USERNAME": "Username",
     "FIRST_NAME": "First Name",
@@ -23,5 +24,9 @@
     "ENGLISH": "English",
     "TRAD_CHINESE": "繁體中文",
 
-    "UPLOAD_PICTURE": "Upload Picture"
+    "UPLOAD_PICTURE": "Upload Picture",
+
+    "HOURLY_WAGE": "NT/HR",
+    "DAILY_WAGE": "NT/DAY",
+    "SALARY": "NT/Month"
 }

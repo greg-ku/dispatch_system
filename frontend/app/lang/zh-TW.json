@@ -9,6 +9,7 @@
     "PAY": "薪水",
     "POSITION": "地點",
     "DATE": "時間",
+    "MORE": "載入更多",
     "CONFIRM": "確認",
     "USERNAME": "名稱",
     "FIRST_NAME": "名",
@@ -23,5 +24,9 @@
     "ENGLISH": "English",
     "TRAD_CHINESE": "繁體中文",
 
-    "UPLOAD_PICTURE": "上傳圖片"
+    "UPLOAD_PICTURE": "上傳圖片",
+
+    "HOURLY_WAGE": "元/小時",
+    "DAILY_WAGE": "元/天",
+    "SALARY": "元/月"
 }

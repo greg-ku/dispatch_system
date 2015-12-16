@@ -12,6 +12,7 @@ Schema = mongoose.Schema
 
 # schemas
 CaseSchema = new Schema {
+    company: String
     title: String
     discription: String
     salary:
@@ -20,6 +21,7 @@ CaseSchema = new Schema {
     position: String
     workday: [Begin: Date, End: Date]
     owner: Schema.Types.ObjectId
+    ownerName: String
     totalRequired: Number
     candidates: [
         id: Schema.Types.ObjectId
@@ -52,6 +54,7 @@ Case.createCase = (caseIns, username, callback) ->
         return callback code: CODE.E_FAIL, msg: 'account not found' if !acc
         return callback code: CODE.E_FAIL, msg: 'not a company acc' if acc.type != \COMPANY
         new Case do
+            company: acc.profile.companyName
             title: caseIns.title
             discription: caseIns.discription
             salary:
@@ -60,6 +63,7 @@ Case.createCase = (caseIns, username, callback) ->
             position: caseIns.position
             workday: caseIns.workday
             owner: acc._id
+            ownerName: acc.username
         .save (err, caseSaved) ->
             return callback err if err
             # add case to user info

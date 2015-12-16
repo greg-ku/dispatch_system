@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-controller="homepageCtrl">
     <div class="row">
         <div class="col-md-12">
             <div class="input-group">
@@ -22,32 +22,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>遊戲橘子</th>
-                        <th>電玩展員工</th>
+                    <tr ng-repeat="case in cases track by case._id">
+                        <th><a href="#/profile/{{case.ownerName}}">{{case.company}}</a></th>
+                        <th><a href="#/case/{{case._id}}">{{case.title}}</a></th>
                         <th><span style="font-size: 1.5em;" class="glyphicon glyphicon-time"></span></th>
-                        <th>150元/ 小時</th>
-                        <th>台北世貿二館</th>
-                        <th>9/13</th>
-                    </tr>
-                    <tr>
-                        <th>遊戲橘子</th>
-                        <th>電玩展員工</th>
-                        <th><span style="font-size: 1.5em;" class="glyphicon glyphicon-time"></span></th>
-                        <th>150元/ 小時</th>
-                        <th>台北世貿二館</th>
-                        <th>9/13</th>
-                    </tr>
-                    <tr>
-                        <th>遊戲橘子</th>
-                        <th>電玩展員工</th>
-                        <th><span style="font-size: 1.5em;" class="glyphicon glyphicon-time"></span></th>
-                        <th>150元/ 小時</th>
-                        <th>台北世貿二館</th>
-                        <th>9/13</th>
+                        <th>{{case.salary.payment | currency: '': 0}} {{case.salary.unit | translate}}</th>
+                        <th>{{case.position}}</th>
+                        <th>{{case.updated | dateobj: "MM/dd"}}</th>
                     </tr>
                 </tbody>
             </table>
-        </div>
-    </div>
+            <button class="btn btn-default">{{ "MORE" | translate }}</button>
+        </div> <!-- case list col -->
+    </div> <!-- row -->
 </div>
