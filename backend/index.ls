@@ -9,6 +9,7 @@ app = express!
 # routes
 ROUTES_DIR = \./routes
 account = require ROUTES_DIR + \/account
+cases = require ROUTES_DIR + \/case
 
 # configures
 env = process.env.NODE_ENV || "development";
@@ -26,6 +27,7 @@ case "development"
 
 # APIs
 app.use \/api/account, account
+app.use \/api/case, cases
 
 # connect to database
 mongoose.connect \mongodb://localhost/dispatch-dev

@@ -5,13 +5,14 @@ require! \path
 # self module
 MAIN_DIR = path.dirname require.main.filename
 globalVars = require MAIN_DIR + \/lib/global-vars
-CODE = globalVars.STATUS_CODE
 
+CODE = globalVars.STATUS_CODE
 Schema = mongoose.Schema
 
 # password encrypt function
 encrypt = (pw) -> crypto.createHmac \sha256, pw .digest \hex
 
+# schemas
 HeadshotSchema = new Schema {
     content: Buffer
     contentType: String
@@ -35,22 +36,7 @@ AccountSchema = new Schema {
     createDate: { type: Date, default: Date.now }
 }
 
-CaseSchema = new Schema {
-    title: String
-    discription: String
-    salary:
-        payment: Number
-        unit: String
-    position: String
-    workday: [Begin: Date, End: Date]
-    owner: Schema.Types.ObjectId
-    candidates: [Schema.Types.ObjectId]
-    createDate: { type: Date, default: Date.now }
-    updated: { type: Date, default: Date.now }
-}
-
 mongoose.model \Profile, ProfileSchema
-mongoose.model \Case, CaseSchema
 Headshot = mongoose.model \Headshot, HeadshotSchema
 Account = module.exports = mongoose.model \Account, AccountSchema
 
@@ -79,10 +65,10 @@ Account.createAccount = (acc, callback) ->
                 lastName: acc.lastName
                 companyName: acc.companyName
         }
-        .save (err) ->
+        .save (err, accSaved) ->
             if err
             then callback err
-            else callback!
+            else callback null, accSaved._id
 
 Account.login = (acc, callback) ->
     # check parameter existence
@@ -99,8 +85,7 @@ Account.login = (acc, callback) ->
 
 Account.getAccountByName = (username, callback) ->
     # check parameter existence
-    if !username
-        return callback code: CODE.E_INVALID_ARGUMENT, msg: 'incorrect parameter'
+    return callback code: CODE.E_INVALID_ARGUMENT, msg: 'incorrect parameter' if !username
 
     Account.find username: username, (err, accs) ->
         return callback err if err
@@ -117,7 +102,7 @@ Account.getAccounts = (type, conditions, options, callback) ->
     if type != \PERSONAL and type != \COMPANL
         return callback code: CODE.E_FAIL, msg: 'incorrect parameter'
 
-    Account.find {}, null, skip: options.skip, limit: 10, (err, accs) ->
+    Account.find conditions, null, skip: options.skip, limit: 10, (err, accs) ->
         if err then callback err else callback null, accs
 
 # headshot functions
