@@ -51,6 +51,7 @@ api.route \/:username
         else res.json code: CODE.S_OK, userInfo: userInfo
 
 api.post \/login, (req, res) ->
+    return res.json code: CODE.E_FAIL, msg: 'already logged in' if req.session.loggedInUsername
     Account.login req.body, (err, userInfo) ->
         return res.json err if err
         req.session.loggedInUsername = userInfo.username
