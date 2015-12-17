@@ -21,32 +21,33 @@ dispatchApp.controller \dispatchCtrl, [\$scope, \$modal, \$http, \$route, \globa
             templateUrl: \language_modal.html
             controller: \languageCtrl
 
-    $scope.updateLoginInfo = ->
-        $scope.loggedIn = loginInfo.loggedIn
-        $scope.userInfo = loginInfo.userInfo
+    $scope.logout = ->
+        $http.post api.account.logout
+        .then (responseObj) ->
+            if responseObj.data.code == 200
+                loginInfo.setLoggedIn false, null
+                location.hash = \#
+            # TODO: handle logout failed
+        , (responseObj) ->
 
-    # listen events
-    $scope.$on \loginInfoChanged, (event) ->
-        $scope.updateLoginInfo!
+    # callback of updating login info
+    updateLoginInfo = (userInfo, isLoggedIn) ->
+        $scope.loggedIn = isLoggedIn
+        $scope.userInfo = userInfo
+
+    # registering login info callback
+    loginInfo.register updateLoginInfo
+    # unregistering login info callback in destructor
+    $scope.$on \$destroy, -> loginInfo.unregister updateLoginInfo
 
     # fetch current user info
     $http.get api.account.getCurrent
     .then (responseObj) ->
         res = responseObj.data
         loginInfo.setLoggedIn true, res.userInfo if res.userInfo
-        $scope.updateLoginInfo!
     , (responseObj) ->
 
-    $scope.logout = ->
-        $http.post api.account.logout
-        .then (responseObj) ->
-            if responseObj.data.code == 200
-                loginInfo.setLoggedIn false, null
-                $scope.updateLoginInfo!
-                location.hash = \#
-            # TODO: handle logout failed
-        , (responseObj) ->
-
+    # routing url
     $scope.currentUrl = \home #default url
     $scope.$on \$routeChangeSuccess, ->
         switch $route.current.action

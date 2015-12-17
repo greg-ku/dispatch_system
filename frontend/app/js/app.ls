@@ -58,12 +58,25 @@ dispatchApp.factory \loginInfo, ->
     info = {}
     info.loggedIn = false
     info.userInfo = {}
+    info.callbacks = []
 
     # public functions
     info.setLoggedIn = (loggedIn, userInfo) ->
-        this.loggedIn = loggedIn
-        this.userInfo = userInfo
-    info.getUserInfo = -> this.userInfo
-    info.isLoggedIn = -> this.loggedIn
+        @loggedIn = loggedIn
+        @userInfo = userInfo
+        @doCallbacks!
+    info.getUserInfo = -> @userInfo
+    info.isLoggedIn = -> @loggedIn
+
+    info.register = (callback) ->
+        @callbacks.push callback
+        console.log "cb.length: #{info.callbacks.length}"
+    info.unregister = (callback) ->
+        index = @callbacks.indexOf callback
+        @callbacks.splice index, 1 if index >= 0
+        console.log "cb.length: #{info.callbacks.length}"
+    info.doCallbacks = ->
+        for cb, i in @callbacks
+            cb @userInfo, @loggedIn
 
     return info

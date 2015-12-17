@@ -5,6 +5,9 @@
                 <input type="text" class="form-control" placeholder="Type here...">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button">{{ "SEARCH" | translate }}</button>
+                    <button ng-if="userInfo.type === 'COMPANY'" class="btn btn-default btn-post" type="button">
+                        {{ "POST" | translate }}
+                    </button>
                 </span>
             </div>
         </div>
