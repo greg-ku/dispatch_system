@@ -16,7 +16,7 @@ angular.module \select-emulation-directive, [] .directive \selectEmulation, ->
                 '<span class="sr-only">Toggle Dropdown</span>' +
             '</button>' +
             '<ul class="dropdown-menu">' +
-                '<li ng-repeat="opt in options track by $index"><a href="" ng-click="select($index)">{{opt.item}}</a></li>' +
+                '<li ng-repeat="opt in options track by $index"><a href="" ng-click="select($index)">{{opt.item | translate }}</a></li>' +
             '</ul>' +
         '</div>'
     scope:
