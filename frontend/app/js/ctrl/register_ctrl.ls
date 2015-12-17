@@ -93,7 +93,7 @@ dispatchApp.controller \registerCtrl, [\$scope, \$modalInstance, \$http, \global
             if !acc.companyName
                 $scope.setErrorMsg \company, PROMPT.SHOULD_NOT_EMPTY
                 return false
-            if acc.firstName.length > $scope.LENGTH.GENERAL or acc.lastName.length > $scope.LENGTH.GENERAL
+            if acc.companyName.length > $scope.LENGTH.GENERAL
                 $scope.setErrorMsg \company, PROMPT.CHAR_TOO_LONG
                 return false
 
