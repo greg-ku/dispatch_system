@@ -11,10 +11,10 @@ CODE = globalVars.STATUS_CODE
 Schema = mongoose.Schema
 
 # schemas
-CaseSchema = new Schema {
+CaseSchema = new Schema do
     company: String
     title: String
-    discription: String
+    description: String
     salary:
         payment: Number
         unit: String
@@ -29,24 +29,24 @@ CaseSchema = new Schema {
     ]
     createDate: { type: Date, default: Date.now }
     updated: { type: Date, default: Date.now }
-}
 
 # models
 Case = module.exports = mongoose.model \Case, CaseSchema
+
+paramsNeeded =
+    \title
+    \description
+    \payment
+    \paymentUnit
+    \position
+    \totalRequired
+    \workday
 
 # public functions
 Case.createCase = (caseIns, username, callback) ->
     # check parameter existence
     return callback code: CODE.E_FAIL, msg: 'incorrect parameter' if !caseIns or !username
-    parasNeeded =
-        \title
-        \discription
-        \payment
-        \paymentUnit
-        \position
-        \totalRequired
-        \workday
-    for p, i in parasNeeded
+    for p, i in paramsNeeded
         return callback code: CODE.E_FAIL, msg: 'incorrect parameter' if !caseIns[p]
 
     Account.getAccountByName username, (err, acc) ->
@@ -56,7 +56,7 @@ Case.createCase = (caseIns, username, callback) ->
         new Case do
             company: acc.profile.companyName
             title: caseIns.title
-            discription: caseIns.discription
+            description: caseIns.description
             salary:
                 payment: caseIns.payment
                 unit: caseIns.paymentUnit
@@ -73,9 +73,18 @@ Case.createCase = (caseIns, username, callback) ->
             callback null, caseSaved._id
 
 Case.getCases = (conditions, options, callback) ->
-    return null if !callback
     conditions = conditions || {}
     options = options || {}
 
-    Case.find conditions, null, skip: options.skip, limit: 10, (err, cases) ->
+    # do not return 'description' field when it fetch multiple cases
+    projection = paramsNeeded.filter((str) -> str != \description).join ' '
+    Case.find conditions, projection, skip: options.skip, limit: 10, (err, cases) ->
         if err then callback err else callback null, cases
+
+Case.getCaseById = (id, callback) ->
+    return callback code: CODE.E_FAIL, msg: 'incorrect parameter' if !id
+
+    Case.findById id, (err, _case) ->
+        return callback err if err
+        return callback code: CODE.E_FAIL, msg: 'case not found' if !_case
+        callback null, _case

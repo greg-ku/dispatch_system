@@ -32,4 +32,12 @@ api.route \/
     Case.createCase req.body, req.session.loggedInUsername, (err, caseId) ->
         res.json if err then err else code: CODE.S_OK, id: caseId
 
+api.route \/:id
+.get (req, res) ->
+    # get specific case
+    Case.getCaseById req.session.loggedInUsername, (err, _case) ->
+        res.json if err then err else code: CODE.S_OK, case: _case
+# .put mw.loggedinRequired, (req, res) ->
+    # modify specific case
+
 module.exports = api
