@@ -8,6 +8,30 @@ a:hover, a:focus {
     outline: none;
 }
 
+input[type="textarea"] {
+    resize: none;
+}
+
+// select-emulation
+.form-group {
+    select-emulation {
+        display: block;
+        > .btn-group {
+            width: 100%;
+            > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+                width: 100%;
+                padding-right: 38px;
+                border-radius: 4px;
+            }
+            > .btn:nth-child(2) {
+                position: absolute;
+                right: 0;
+                z-index: 10;
+            }
+        }
+    }
+}
+
 #joblist {
     margin-top: 20px;
 }
