@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <button type="button" class="close" aria-label="Close" ng-click="close();"><span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+    <form novalidate>
+        <div class="form-group">
+            <label>{{ "TITLE" | translate }}</label>
+            <input type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>{{ "WORKDAY" | translate }}</label>
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="input-group">
+                        <input type="text" class="form-control" is-open="status.opened" ng-model="dt" uib-datepicker-popup
+                        ng-required="true" close-text="{{ 'CLOSE' | translate }}" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <uib-timepicker ng-model="mytime" hour-step="1" minute-step="5" show-meridian="true" show-spinners="false"></uib-timepicker>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>{{ "POSITION" | translate }}</label>
+            <input type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>{{ "PAY" | translate }}</label>
+                    <input type="text" class="form-control" maxlength="10">
+                </div>
+                <div class="col-md-3">
+                    <label>{{ "UNIT" | translate }}</label>
+                    <select-emulation selected="selectedPaymentUnit" options="unitOpts"></select-emulation>
+                </div>
+                <div class="col-md-6">
+                    <label>{{ "REQUIRED" | translate }}</label>
+                    <input type="text" class="form-control" maxlength="5">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>{{ "DESCRIPTION" | translate }}</label>
+            <textarea rows="20" class="form-control"></textarea>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button ng-click="confirm(editted)" ng-disabled="requesting" class="btn btn-default">{{ "CONFIRM" | translate }}</button>
+</div>
