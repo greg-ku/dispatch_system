@@ -41,7 +41,7 @@ dispatchApp.controller \profileCtrl, [\$scope, \$http, \$routeParams, \globalVar
         .then (responseObj) ->
             res = responseObj.data
             if res.code == 200
-                $scope.userInfo.profile.headshotUrl = "#{api.account.getHeadshot}/#{res.id}?" + Date.now!
+                $scope.userInfo.profile.headshotUrl = "#{api.account.getHeadshot}/#{res.id}?r=#{Date.now!}"
                 loginInfo.setLoggedIn true, $scope.userInfo
         , (responseObj) ->
             # error handle

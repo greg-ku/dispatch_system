@@ -23,7 +23,7 @@
                     <li ng-if="loggedIn">
                         <a href="#/profile/{{userInfo.username}}">
                             <span ng-if="!userInfo.profile.headshotUrl" class="glyphicon glyphicon-user"></span>
-                            <img ng-if="userInfo.profile.headshotUrl" id="header-headshot-icon" ng-src="{{userInfo.profile.headshotUrl}}">
+                            <img ng-if="userInfo.profile.headshotUrl" id="header-headshot-icon" ng-src="{{ userInfo.profile.headshotUrl || '//:0' }}">
                             {{ userInfo.username }}
                         </a>
                     </li>

@@ -1,7 +1,7 @@
 <div class="container" ng-controller="profileCtrl">
     <div class="row">
         <div class="col-md-3">
-            <div id="profile-headshot" ><img ng-src="{{userInfo.profile.headshotUrl}}"></div>
+            <div id="profile-headshot" ><img ng-src="{{ userInfo.profile.headshotUrl || '//:0' }}"></div>
             <file-input ng-if="isCurrentUser" on-change="uploadHeadshot(file)">{{ "UPLOAD_PICTURE" | translate }}</file-input>
         </div>
         <div class="col-md-9">
