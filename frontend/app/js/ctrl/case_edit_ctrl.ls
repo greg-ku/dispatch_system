@@ -16,6 +16,6 @@ dispatchApp.controller \caseEditCtrl, [\$scope, \$http, \$uibModalInstance, \glo
           value: \hour
         * item: \PAY_DAILY
           value: \day
-        * item: \PAY_MONTH
+        * item: \PAY_MONTHLY
           value: \month
 ]

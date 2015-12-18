@@ -31,9 +31,10 @@
     "DAILY_WAGE": "NT/DAY",
     "SALARY": "NT/Month",
 
-    "PAY_HOURLY": "Hour Wage",
-    "PAY_DAILY": "Day Wage",
-    "PAY_MONTHLY": "Salary",
+    "PAY_HOURLY": "Hourly Rate",
+    "PAY_DAILY": "Daily Rate",
+    "PAY_MONTHLY": "Monthly Salary",
     "TITLE": "Title",
-    "UNIT": "Unit"
+    "UNIT": "Unit",
+    "RECRUITING_POSI": "Recruiting Positions"
 }
