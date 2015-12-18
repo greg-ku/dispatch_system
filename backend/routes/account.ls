@@ -41,7 +41,7 @@ api.get \/available, (req, res) ->
         res.json code: CODE.S_OK, available: if userInfo then false else true
 
 api.route \/:username
-.get mw.loginRequired, (req, res) ->
+.get (req, res) ->
     # get account by username
     Account.getAccountByName req.params.username, (err, userInfo) ->
         if err
