@@ -4,6 +4,7 @@ dispatchApp.controller \profileCtrl, [\$scope, \$http, \$routeParams, \globalVar
 
     # default values
     $scope.isCurrentUser = false
+    $scope.userInfo = {}
 
     if !$routeParams.username
         throw new Error 'no username parameter'
