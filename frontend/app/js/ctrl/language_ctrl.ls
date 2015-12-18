@@ -1,30 +1,26 @@
-dispatchApp.controller \languageCtrl, [\$scope, \$translate, \$modalInstance, \$http, ($scope, $translate, $modalInstance, $http) ->
+dispatchApp.controller \languageCtrl, [\$scope, \$translate, \$uibModalInstance, \$http,
+($scope, $translate, $uibModalInstance, $http) ->
+
     # modal close function
-    $scope.close = !-> $modalInstance.dismiss(\cancel);
+    $scope.close = !-> $uibModalInstance.dismiss(\cancel);
 
     # language list
     $scope.langs = 
-        * lang: "ENGLISH"
+        * item: "ENGLISH"
           value: \en-US
-        * lang: "TRAD_CHINESE"
+        * item: "TRAD_CHINESE"
           value: \zh-TW
 
     # set current language
-    $scope.selectedLang = $scope.langs[0] # default
-    if window.localStorage[\lang]?
-        $scope.langs.forEach (lang) -> $scope.selectedLang = lang if window.localStorage[\lang] == lang.value
+    $scope.selectedLang = if window.localStorage[\lang] then window.localStorage[\lang] else $scope.langs[0]
 
     prefix = \/lang/
     suffix = \.json
-    $scope.changeLang = (lang) ->
-        $scope.langUsed = lang || $scope.selectedLang.value
-        if not $scope.langUsed?
-            return
-
-        $http.get prefix + $scope.langUsed + suffix
+    $scope.changeLang = ->
+        $http.get prefix + $scope.selectedLang + suffix
         .then (response) -> # success callback
-            $translate.use $scope.langUsed
-            window.localStorage[\lang] = $scope.langUsed # store language
+            $translate.use $scope.selectedLang
+            window.localStorage[\lang] = $scope.selectedLang # store language
         , (response) -> # error callback
             # error handle
 ]

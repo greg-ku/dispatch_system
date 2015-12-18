@@ -1,15 +1,16 @@
 angular.module \select-emulation-directive, [] .directive \selectEmulation, ->
     link = (scope, element, attrs) ->
-        scope.select = (i) ->
+        scope.select = (i, silent) ->
             scope.selected = scope.options[i]
             scope.selectedValue = scope.options[i].value
+            # do callback
+            scope.onChange! if !silent
 
         # init seelcted
         if scope.selectedValue
             scope.options.forEach (opt) -> scope.selected = opt if scope.selectedValue == opt.value
         else
-            scope.select 0
-
+            scope.select 0, true
 
     # return object
     restrict: \E
@@ -27,5 +28,6 @@ angular.module \select-emulation-directive, [] .directive \selectEmulation, ->
         '</div>'
     scope:
         'options': '='
-        'selectedValue': '=selectedValue'
+        'selectedValue': '='
+        'onChange': '&'
     link: link
