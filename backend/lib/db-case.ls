@@ -19,10 +19,10 @@ CaseSchema = new Schema do
         payment: Number
         unit: String
     position: String
-    workday: [Begin: Date, End: Date]
+    workday: [begin: Date, end: Date]
     owner: Schema.Types.ObjectId
     ownerName: String
-    totalRequired: Number
+    openingNum: Number
     candidates: [
         id: Schema.Types.ObjectId
         status: String
@@ -33,19 +33,19 @@ CaseSchema = new Schema do
 # models
 Case = module.exports = mongoose.model \Case, CaseSchema
 
-paramsNeeded =
-    \title
-    \description
-    \payment
-    \paymentUnit
-    \position
-    \totalRequired
-    \workday
-
 # public functions
 Case.createCase = (caseIns, username, callback) ->
     # check parameter existence
     return callback code: CODE.E_FAIL, msg: 'incorrect parameter' if !caseIns or !username
+
+    paramsNeeded =
+        \title
+        \description
+        \salary
+        \position
+        \openingNum
+        \workday
+
     for p, i in paramsNeeded
         return callback code: CODE.E_FAIL, msg: 'incorrect parameter' if !caseIns[p]
 
@@ -54,14 +54,13 @@ Case.createCase = (caseIns, username, callback) ->
         return callback code: CODE.E_FAIL, msg: 'account not found' if !acc
         return callback code: CODE.E_FAIL, msg: 'not a company acc' if acc.type != \COMPANY
         new Case do
-            company: acc.profile.companyName
             title: caseIns.title
             description: caseIns.description
-            salary:
-                payment: caseIns.payment
-                unit: caseIns.paymentUnit
+            salary: caseIns.salary
             position: caseIns.position
+            openingNum: caseIns.openingNum
             workday: caseIns.workday
+            company: acc.profile.companyName
             owner: acc._id
             ownerName: acc.username
         .save (err, caseSaved) ->
@@ -77,7 +76,18 @@ Case.getCases = (conditions, options, callback) ->
     options = options || {}
 
     # do not return 'description' field when it fetch multiple cases
-    projection = paramsNeeded.filter((str) -> str != \description).join ' '
+    paramsNeeded =
+        \title
+        \salary
+        \position
+        \openingNum
+        \workday
+        \company
+        \owner
+        \ownerName
+        \updated
+    projection = paramsNeeded.join ' '
+
     Case.find conditions, projection, skip: options.skip, limit: 10, (err, cases) ->
         if err then callback err else callback null, cases
 

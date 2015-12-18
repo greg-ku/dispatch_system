@@ -1,9 +1,15 @@
 angular.module \select-emulation-directive, [] .directive \selectEmulation, ->
     link = (scope, element, attrs) ->
-        scope.select = (i) -> scope.selected = scope.options[i]
+        scope.select = (i) ->
+            scope.selected = scope.options[i]
+            scope.selectedValue = scope.options[i].value
 
-        #default values
-        scope.selected = scope?.options?[0] if !scope.selected
+        # init seelcted
+        if scope.selectedValue
+            scope.options.forEach (opt) -> scope.selected = opt if scope.selectedValue == opt.value
+        else
+            scope.select 0
+
 
     # return object
     restrict: \E
@@ -21,5 +27,5 @@ angular.module \select-emulation-directive, [] .directive \selectEmulation, ->
         '</div>'
     scope:
         'options': '='
-        'selected': '='
+        'selectedValue': '=selectedValue'
     link: link

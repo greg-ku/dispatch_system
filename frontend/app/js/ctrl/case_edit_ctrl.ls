@@ -20,6 +20,16 @@ dispatchApp.controller \caseEditCtrl, [\$scope, \$http, \$uibModalInstance, \glo
         $scope.caseInfo.workday.splice index, 1
         $scope.dpStatus.splice index, 1
 
+    $scope.confirm = (info) ->
+        $http.post api.case.createCase, info
+        .then (responseObj) ->
+            res = responseObj.data
+            if res.code == 200
+                $scope.close!
+            else
+                console.log res.msg
+        , (responseObj) ->
+
     # default values
     $scope.unitOpts =
         * item: \PAY_HOURLY
