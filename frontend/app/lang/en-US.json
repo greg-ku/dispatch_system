@@ -3,6 +3,7 @@
     "LOGOUT": "Logout",
     "REGISTER": "Register",
     "SEARCH": "Search",
+    "POST": "Post",
     "COMPANY": "Company",
     "DESCRIPTION": "Description",
     "WORKDAY": "Workday",
@@ -28,5 +29,11 @@
 
     "HOURLY_WAGE": "NT/HR",
     "DAILY_WAGE": "NT/DAY",
-    "SALARY": "NT/Month"
+    "SALARY": "NT/Month",
+
+    "PAY_HOURLY": "Hour Wage",
+    "PAY_DAILY": "Day Wage",
+    "PAY_MONTHLY": "Salary",
+    "TITLE": "Title",
+    "UNIT": "Unit"
 }

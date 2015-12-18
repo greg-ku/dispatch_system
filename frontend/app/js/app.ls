@@ -1,6 +1,6 @@
 templates = angular.module \templates, []
 
-dispatchApp = angular.module \dispatchApp, [\ngRoute, \ui.bootstrap, \templates, \pascalprecht.translate, \date-obj-filter, \file-input-directive]
+dispatchApp = angular.module \dispatchApp, [\ngRoute, \ui.bootstrap, \templates, \pascalprecht.translate, \date-obj-filter, \file-input-directive, \select-emulation-directive]
 
 dispatchApp.config [\$routeProvider, \$translateProvider, ($routeProvider, $translateProvider) ->
     # translation setting
@@ -70,11 +70,9 @@ dispatchApp.factory \loginInfo, ->
 
     info.register = (callback) ->
         @callbacks.push callback
-        console.log "cb.length: #{info.callbacks.length}"
     info.unregister = (callback) ->
         index = @callbacks.indexOf callback
         @callbacks.splice index, 1 if index >= 0
-        console.log "cb.length: #{info.callbacks.length}"
     info.doCallbacks = ->
         for cb, i in @callbacks
             cb @userInfo, @loggedIn

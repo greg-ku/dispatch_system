@@ -1,22 +1,22 @@
-dispatchApp.controller \dispatchCtrl, [\$scope, \$modal, \$http, \$route, \globalVars, \loginInfo,
-($scope, $modal, $http, $route, globalVars, loginInfo) ->
+dispatchApp.controller \dispatchCtrl, [\$scope, \$uibModal, \$http, \$route, \globalVars, \loginInfo,
+($scope, $uibModal, $http, $route, globalVars, loginInfo) ->
+
     api = globalVars.API
 
     $scope.openLoginModal = ->
-        modalInstance = $modal.open do
+        modalInstance = $uibModal.open do
             animation: true
             templateUrl: \login_modal.html
             controller: \loginCtrl
-            scope: $scope
 
     $scope.openRegisterModal = ->
-        modalInstance = $modal.open do
+        modalInstance = $uibModal.open do
             animation: true
             templateUrl: \register_modal.html
             controller: \registerCtrl
 
     $scope.openLangModal = ->
-        modalInstance = $modal.open do
+        modalInstance = $uibModal.open do
             animation: true
             templateUrl: \language_modal.html
             controller: \languageCtrl

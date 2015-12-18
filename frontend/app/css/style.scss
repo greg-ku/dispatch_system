@@ -1,8 +1,8 @@
 @import "bootstrap";
 
-[class*="col-"] {
-    margin-bottom: 15px;
-}
+// [class*="col-"] {
+//     margin-bottom: 15px;
+// }
 
 a:hover, a:focus {
     outline: none;
@@ -10,6 +10,11 @@ a:hover, a:focus {
 
 input[type="textarea"] {
     resize: none;
+}
+
+// form-group
+.form-group .input-group {
+    margin: 0;
 }
 
 // select-emulation
@@ -22,6 +27,8 @@ input[type="textarea"] {
                 width: 100%;
                 padding-right: 38px;
                 border-radius: 4px;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             > .btn:nth-child(2) {
                 position: absolute;

@@ -3,6 +3,7 @@
     "LOGOUT": "登出",
     "REGISTER": "註冊",
     "SEARCH": "搜尋",
+    "POST": "張貼",
     "COMPANY": "公司",
     "DESCRIPTION": "描述",
     "WORKDAY": "工作時間",
@@ -28,5 +29,11 @@
 
     "HOURLY_WAGE": "元/小時",
     "DAILY_WAGE": "元/天",
-    "SALARY": "元/月"
+    "SALARY": "元/月",
+
+    "PAY_HOURLY": "時薪",
+    "PAY_DAILY": "日薪",
+    "PAY_MONTHLY": "月薪",
+    "TITLE": "標題",
+    "UNIT": "單位"
 }
