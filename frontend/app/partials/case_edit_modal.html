@@ -6,34 +6,46 @@
         <div class="form-group">
             <label>{{ "TITLE" | translate }}</label>
             <input type="text" class="form-control">
-        </div>
+        </div> <!-- end of title -->
         <div class="form-group">
             <label>{{ "WORKDAY" | translate }}</label>
-            <div class="row">
+            <div class="row" ng-repeat="wd in caseInfo.workday track by $index">
                 <div class="col-md-3">
                     <p class="input-group">
-                        <input type="text" class="form-control" is-open="status.opened" ng-model="dt" uib-datepicker-popup
-                        ng-required="true" close-text="{{ 'CLOSE' | translate }}" />
+                        <input type="text" class="form-control" is-open="dpStatus[$index].opened" ng-model="wd.begin" uib-datepicker-popup
+                        ng-required="true"
+                        current-text="{{ 'TODAY' | translate }}" clear-text="{{ 'CLEAR' | translate }}" close-text="{{ 'CLOSE' | translate }}" />
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                            <button type="button" class="btn btn-default" ng-click="open($index)">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </button>
                         </span>
                     </p>
-                </div>
-                <div class="col-md-3">
-                    <uib-timepicker ng-model="mytime" hour-step="1" minute-step="5" show-meridian="true" show-spinners="false"></uib-timepicker>
-                </div>
-            </div>
-        </div>
+                </div> <!-- end of datepicker -->
+                <div class="col-md-7">
+                    <uib-timepicker ng-model="wd.begin" hour-step="1" minute-step="5" show-meridian="true" show-spinners="false"></uib-timepicker>
+                    <table class="for-align"><tr><td><span class="span-for-align">
+                        <label> to </label>
+                    </span></td></tr></table>
+                    <uib-timepicker ng-model="wd.end" hour-step="1" minute-step="5" show-meridian="true" show-spinners="false"></uib-timepicker>
+
+                    <!-- workday management -->
+                    <table class="for-align"><tr><td><span class="span-for-align">
+                        <span class="glyphicon glyphicon-remove button-icon remove-icon" ng-if="caseInfo.workday.length !== 1"
+                        ng-click="removeWorkday($index)"></span>
+                        <span class="glyphicon glyphicon-plus button-icon add-icon" ng-if="$last" ng-click="addNewWorkday(wd)"></span>
+                    </span></td></tr></table>
+                </div> <!-- end of begin timepicker -->
+            </div> <!-- end of ng-repeat -->
+        </div> <!-- end of workday -->
         <div class="form-group">
             <label>{{ "POSITION" | translate }}</label>
             <input type="text" class="form-control">
-        </div>
+        </div> <!-- end of position -->
         <div class="form-group">
             <div class="row">
                 <div class="col-md-3">
-                    <label>{{ "PAY" | translate }}</label>
+                    <label>{{ "PAYMENT" | translate }}</label>
                     <input type="text" class="form-control" maxlength="10">
                 </div>
                 <div class="col-md-3">
@@ -45,11 +57,11 @@
                     <input type="text" class="form-control" maxlength="5">
                 </div>
             </div>
-        </div>
+        </div> <!-- end of payment -->
         <div class="form-group">
             <label>{{ "DESCRIPTION" | translate }}</label>
             <textarea rows="20" class="form-control"></textarea>
-        </div>
+        </div> <!-- end of description -->
     </form>
 </div>
 <div class="modal-footer">

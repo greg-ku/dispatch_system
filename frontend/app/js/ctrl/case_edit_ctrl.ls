@@ -1,14 +1,24 @@
-dispatchApp.controller \caseEditCtrl, [\$scope, \$http, \$uibModalInstance, \globalVars, \loginInfo, ($scope, $http, $uibModalInstance, globalVars, loginInfo) ->
+dispatchApp.controller \caseEditCtrl, [\$scope, \$http, \$uibModalInstance, \globalVars, \loginInfo,
+($scope, $http, $uibModalInstance, globalVars, loginInfo) ->
+
     $scope.close = !-> $uibModalInstance.dismiss(\cancel);
 
     api = globalVars.API
 
-    $scope.status = opened: false
-    $scope.open = ($event) -> $scope.status.opened = true
-    $scope.dateOptions =
-        formatYear: 'yy'
-        startingDay: 1
-    $scope.dt = new Date!
+    # manage datepicker's opening status
+    $scope.dpStatus = [opened: false]
+    $scope.open = (index) -> $scope.dpStatus[index]?.opened = true
+
+    # manage workdays
+    $scope.addNewWorkday = (wd) ->
+        tomorrow =
+            begin: if wd.begin then new Date wd.begin.getTime! + (24 * 60 * 60 * 1000) else new Date!
+            end: if wd.end then new Date wd.end.getTime! + (24 * 60 * 60 * 1000) else new Date!
+        $scope.caseInfo.workday.push tomorrow
+        $scope.dpStatus.push opened: false
+    $scope.removeWorkday = (index) ->
+        $scope.caseInfo.workday.splice index, 1
+        $scope.dpStatus.splice index, 1
 
     # default values
     $scope.unitOpts =
@@ -18,4 +28,7 @@ dispatchApp.controller \caseEditCtrl, [\$scope, \$http, \$uibModalInstance, \glo
           value: \day
         * item: \PAY_MONTHLY
           value: \month
+
+    $scope.caseInfo =
+        workday: [begin: new Date!, end: new Date!]
 ]

@@ -36,5 +36,10 @@
     "PAY_MONTHLY": "月薪",
     "TITLE": "標題",
     "UNIT": "單位",
-    "RECRUITING_NUM": "招募人數"
+    "PAYMENT": "薪資",
+    "RECRUITING_NUM": "招募人數",
+
+    "TODAY": "今天",
+    "CLEAR": "清除",
+    "CLOSE": "關閉"
 }

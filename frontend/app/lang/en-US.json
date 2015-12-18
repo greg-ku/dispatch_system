@@ -36,5 +36,11 @@
     "PAY_MONTHLY": "Monthly Salary",
     "TITLE": "Title",
     "UNIT": "Unit",
-    "RECRUITING_NUM": "Number of Openings"
+    "PAYMENT": "Payment",
+    "RECRUITING_NUM": "Number of Openings",
+
+
+    "TODAY": "Today",
+    "CLEAR": "Clear",
+    "CLOSE": "Close"
 }

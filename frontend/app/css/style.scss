@@ -82,3 +82,37 @@ input[type="textarea"] {
         display: none;
     }
 }
+
+// case edit template
+.form-group {
+    table.ng-valid-time, table.ng-invalid-time, table.for-align {
+        display: inline-table;
+
+        span.span-for-align {
+            height: 34px;
+            display: block;
+            padding: 6px 12px;
+        }
+    }
+}
+
+.button-icon {
+    font-size: 1.4em;
+    font-weight: bold;
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.add-icon {
+        color: rgb(92, 184, 92);
+        &:hover {
+            color: rgb(71, 164, 71);
+        }
+    }
+    &.remove-icon {
+        color: rgb(217, 83, 79);
+        &:hover {
+            color: rgb(210, 50, 45);
+        }
+    }
+}
