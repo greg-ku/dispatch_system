@@ -27,9 +27,9 @@
 
     "UPLOAD_PICTURE": "Upload Picture",
 
-    "HOURLY_WAGE": "NT/HR",
-    "DAILY_WAGE": "NT/DAY",
-    "SALARY": "NT/Month",
+    "UNIT_HOURLY": "NT/HR",
+    "UNIT_DAILY": "NT/DAY",
+    "UNIT_MONTHLY": "NT/Month",
 
     "PAY_HOURLY": "Hourly Rate",
     "PAY_DAILY": "Daily Rate",

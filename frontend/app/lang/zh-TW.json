@@ -27,9 +27,9 @@
 
     "UPLOAD_PICTURE": "上傳圖片",
 
-    "HOURLY_WAGE": "元/小時",
-    "DAILY_WAGE": "元/天",
-    "SALARY": "元/月",
+    "UNIT_HOURLY": "元/小時",
+    "UNIT_DAILY": "元/天",
+    "UNIT_MONTHLY": "元/月",
 
     "PAY_HOURLY": "時薪",
     "PAY_DAILY": "日薪",

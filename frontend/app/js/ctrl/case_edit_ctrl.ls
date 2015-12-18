@@ -33,11 +33,11 @@ dispatchApp.controller \caseEditCtrl, [\$scope, \$http, \$uibModalInstance, \glo
     # default values
     $scope.unitOpts =
         * item: \PAY_HOURLY
-          value: \hour
+          value: \UNIT_HOURLY
         * item: \PAY_DAILY
-          value: \day
+          value: \UNIT_DAILY
         * item: \PAY_MONTHLY
-          value: \month
+          value: \UNIT_MONTHLY
 
     $scope.caseInfo =
         workday: [begin: new Date!, end: new Date!]
