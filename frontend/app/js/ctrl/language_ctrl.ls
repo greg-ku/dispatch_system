@@ -12,7 +12,7 @@ dispatchApp.controller \languageCtrl, [\$scope, \$translate, \$uibModalInstance,
           value: \zh-TW
 
     # set current language
-    $scope.selectedLang = if window.localStorage[\lang] then window.localStorage[\lang] else $scope.langs[0]
+    $scope.selectedLang = if window.localStorage[\lang] then window.localStorage[\lang] else $scope.langs[0].value
 
     prefix = \/lang/
     suffix = \.json
