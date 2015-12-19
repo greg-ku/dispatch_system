@@ -73,7 +73,7 @@ Case.createCase = (caseIns, username, callback) ->
 
 Case.getCases = (conditions, options, callback) ->
     conditions = conditions || {}
-    options = options || {}
+    options = options || limit: 20, sort: { updated: -1 }
 
     # do not return 'description' field when it fetch multiple cases
     paramsNeeded =
@@ -87,8 +87,9 @@ Case.getCases = (conditions, options, callback) ->
         \ownerName
         \updated
     projection = paramsNeeded.join ' '
+    cond = updated: { $lt: conditions.updated } if conditions.updated
 
-    Case.find conditions, projection, skip: options.skip, limit: 10, (err, cases) ->
+    Case.find cond, projection, options, (err, cases) ->
         if err then callback err else callback null, cases
 
 Case.getCaseById = (id, callback) ->

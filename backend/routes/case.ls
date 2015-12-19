@@ -22,10 +22,7 @@ upload = multer do
 api.route \/
 .get (req, res) ->
     # list cases
-    skip = req.query.skip
-    delete req.query.skip if skip != undefined
-
-    Case.getCases req.query, skip: skip, (err, cases) ->
+    Case.getCases req.query, null, (err, cases) ->
         res.json if err then err else code: CODE.S_OK, cases: cases
 .post mw.loginRequired, (req, res) ->
     # create new case

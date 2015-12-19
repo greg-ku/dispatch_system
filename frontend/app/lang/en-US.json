@@ -11,6 +11,10 @@
     "POSITION": "Position",
     "DATE": "Date",
     "MORE": "More",
+    "JOBS": "Jobs",
+    "REFRESH": "Refresh",
+    "KEYWORDS_HINT": "Keywords...",
+    "EMPTY_CASES_HINT": "Empty search result",
     "CONFIRM": "Confirm",
     "USERNAME": "Username",
     "FIRST_NAME": "First Name",
@@ -38,7 +42,6 @@
     "UNIT": "Unit",
     "PAYMENT": "Payment",
     "RECRUITING_NUM": "Number of Openings",
-
 
     "TODAY": "Today",
     "CLEAR": "Clear",

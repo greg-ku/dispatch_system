@@ -6,7 +6,9 @@ dispatchApp.controller \homepageCtrl, [\$scope, \$http, \$uibModal, \globalVars,
     # default values
     $scope.userInfo = loginInfo.getUserInfo!
     $scope.cases = []
-    skip = 0
+    $scope.isFetchEnabled = true
+    $scope.lastUpdatedDate = null
+    $scope.noMore = false
 
     $scope.openCaseEditModal = ->
         modalInstance = $uibModal.open do
@@ -18,17 +20,37 @@ dispatchApp.controller \homepageCtrl, [\$scope, \$http, \$uibModal, \globalVars,
     # callback of updating login info
     updateLoginInfo = -> $scope.userInfo = loginInfo.getUserInfo!
 
+    fetchCases = (params) ->
+        $scope.isFetchEnabled = false
+        $http.get api.case.getCases, params: params
+        .then (responsiveObj) ->
+            res = responsiveObj.data
+            if res.code == 200
+                if res.cases?.length
+                    $scope.lastUpdatedDate = res.cases[res.cases.length - 1].updated 
+                    $scope.cases = $scope.cases.concat res.cases
+                else
+                    $scope.noMore = true
+
+            $scope.isFetchEnabled = true
+        , (responsiveObj) ->
+            # error handle
+            $scope.isFetchEnabled = true
+
+    $scope.moreCases = (str) -> $scope.searchCases str
+    $scope.refreshCases = (str) -> $scope.searchCases str, true
+    $scope.searchCases = (str, erase) ->
+        if erase
+            $scope.noMore = false
+            $scope.cases = []
+            $scope.lastUpdatedDate = null
+        search = str.replace /[\s\t,;]+/g, ',' if str
+        fetchCases updated: $scope.lastUpdatedDate, search: search
+
     # registering login info callback
     loginInfo.register updateLoginInfo
     # unregistering login info callback in destructor
     $scope.$on \$destroy, -> loginInfo.unregister updateLoginInfo
 
-    $http.get api.case.getCases, params: { skip: skip }
-    .then (responsiveObj) ->
-        res = responsiveObj.data
-        if res.code == 200
-            $scope.cases = $scope.cases.concat res.cases
-            skip += res.cases.length
-    , (responsiveObj) ->
-        # error handle
+    fetchCases!
 ]

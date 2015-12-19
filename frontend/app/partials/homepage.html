@@ -2,40 +2,57 @@
     <div class="row">
         <div class="col-md-12">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Type here...">
+                <input type="text" class="form-control" placeholder="{{ 'KEYWORDS_HINT' | translate}}" maxlength="1000" ng-model="searchString">
                 <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">{{ "SEARCH" | translate }}</button>
+                    <button class="btn btn-default" type="button" ng-click="searchCases(searchString, true)" ng-disabled="!isFetchEnabled">{{ "SEARCH" | translate }}</button>
                     <button ng-if="userInfo.type === 'COMPANY'" ng-click="openCaseEditModal();" class="btn btn-default btn-danger" type="button">
                         {{ "POST" | translate }}
                     </button>
                 </span>
             </div>
         </div>
+    </div>
 
+    <div class="row">
         <div class="col-md-12">
-            <table id="joblist" class="table">
-                <thead>
-                    <tr>
-                        <th>{{ "COMPANY" | translate }}</th>
-                        <th>{{ "DESCRIPTION" | translate }}</th>
-                        <th>{{ "WORKDAY" | translate }}</th>
-                        <th>{{ "PAY" | translate }}</th>
-                        <th>{{ "POSITION" | translate }}</th>
-                        <th>{{ "DATE" | translate }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="case in cases track by case._id">
-                        <th><a href="#/profile/{{case.ownerName}}">{{case.company}}</a></th>
-                        <th><a href="#/case/{{case._id}}">{{case.title}}</a></th>
-                        <th><span style="font-size: 1.5em;" class="glyphicon glyphicon-time"></span></th>
-                        <th>{{case.salary.payment | currency: '': 0}} {{case.salary.unit | translate}}</th>
-                        <th>{{case.position}}</th>
-                        <th>{{case.updated | dateobj: "MM/dd"}}</th>
-                    </tr>
-                </tbody>
-            </table>
-            <button class="btn btn-default">{{ "MORE" | translate }}</button>
+            <div id="joblist" class="panel panel-default">
+                <div class="panel-heading">
+                    {{ "JOBS" | translate }}
+                    <button class="btn btn-default btn-refresh" ng-disabled="!isFetchEnabled" tooltip-enable="isFetchEnabled"
+                    uib-tooltip="{{ 'REFRESH' | translate }}" tooltip-trigger="mouseenter" ng-click="refreshCases(searchString)">
+                        <span class="glyphicon glyphicon-refresh" ></span>
+                    </button>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>{{ "COMPANY" | translate }}</th>
+                            <th>{{ "DESCRIPTION" | translate }}</th>
+                            <th>{{ "WORKDAY" | translate }}</th>
+                            <th>{{ "PAY" | translate }}</th>
+                            <th>{{ "POSITION" | translate }}</th>
+                            <th>{{ "DATE" | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="!cases.length"><td colspan="6" class="case-result-empty">{{ "EMPTY_CASES_HINT" | translate }}</td></tr>
+                        <tr ng-if="cases.length" ng-repeat="case in cases track by case._id">
+                            <td><a href="#/profile/{{case.ownerName}}">{{case.company}}</a></td>
+                            <td><a href="#/case/{{case._id}}">{{case.title}}</a></td>
+                            <td><span style="font-size: 1.5em;" class="glyphicon glyphicon-time"></span></td>
+                            <td>{{case.salary.payment | currency: '': 0}} {{case.salary.unit | translate}}</td>
+                            <td>{{case.position}}</td>
+                            <td>
+                                <label uib-tooltip="{{case.updated | dateobj: 'MM/dd/yyyy hh:mm:ss'}}"
+                                tooltip-trigger="mouseenter" tooltip-popup-delay="500">
+                                    {{case.updated | dateobj: "MM/dd"}}
+                                </label>
+                            </td>
+                        </tr> <!-- end of repeat -->
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-default" ng-disabled="!isFetchEnabled || noMore" ng-click="moreCases(SearchString)">{{ "MORE" | translate }}</button>
         </div> <!-- case list col -->
     </div> <!-- row -->
 </div>
