@@ -65,25 +65,25 @@ dispatchApp.factory \globalVars, ->
 # login info service
 dispatchApp.factory \loginInfo, ->
     info = {}
-    info.loggedIn = false
-    info.userInfo = {}
-    info.callbacks = []
+    loggedIn = false
+    userInfo = {}
+    callbacks = []
+
+    doCallbacks = ->
+        for cb, i in callbacks
+            cb userInfo, loggedIn
 
     # public functions
-    info.setLoggedIn = (loggedIn, userInfo) ->
-        @loggedIn = loggedIn
-        @userInfo = userInfo
-        @doCallbacks!
-    info.getUserInfo = -> @userInfo
-    info.isLoggedIn = -> @loggedIn
+    info.setLoggedIn = (isLoggedIn, newUserInfo) ->
+        loggedIn := isLoggedIn
+        userInfo := newUserInfo
+        doCallbacks!
+    info.getUserInfo = -> userInfo
+    info.isLoggedIn = -> loggedIn
 
     info.register = (callback) ->
-        @callbacks.push callback
+        callbacks.push callback
     info.unregister = (callback) ->
-        index = @callbacks.indexOf callback
-        @callbacks.splice index, 1 if index >= 0
-    info.doCallbacks = ->
-        for cb, i in @callbacks
-            cb @userInfo, @loggedIn
-
+        index = callbacks.indexOf callback
+        callbacks.splice index, 1 if index >= 0
     return info
