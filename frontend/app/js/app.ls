@@ -1,6 +1,14 @@
 templates = angular.module \templates, []
 
-dispatchApp = angular.module \dispatchApp, [\ngRoute, \ui.bootstrap, \templates, \pascalprecht.translate, \date-obj-filter, \file-input-directive, \select-emulation-directive]
+dispatchApp = angular.module \dispatchApp,[
+    \ngRoute,
+    \ui.bootstrap,
+    \templates,
+    \pascalprecht.translate,
+    \date-obj-filter,
+    \file-input-directive,
+    \select-emulation-directive
+]
 
 dispatchApp.config [\$routeProvider, \$translateProvider, ($routeProvider, $translateProvider) ->
     # translation setting
@@ -9,6 +17,7 @@ dispatchApp.config [\$routeProvider, \$translateProvider, ($routeProvider, $tran
         suffix: \.json
     preferLang = window.localStorage[\lang] || \en-US
     $translateProvider.preferredLanguage preferLang
+    $translateProvider.useSanitizeValueStrategy \escape
 
     # config url routes
     $routeProvider
