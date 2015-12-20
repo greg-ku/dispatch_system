@@ -17,6 +17,9 @@ dispatchApp.controller \homepageCtrl, [\$scope, \$http, \$uibModal, \globalVars,
             controller: \caseEditCtrl
             size: \lg
 
+    # redirect to preview url
+    $scope.previewCase = (id) -> location.hash = "#/case/#{id}?r=#{Date.now!}"
+
     # callback of updating login info
     updateLoginInfo = -> $scope.userInfo = loginInfo.getUserInfo!
 

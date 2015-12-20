@@ -38,7 +38,7 @@
                         <tr ng-if="!cases.length"><td colspan="6" class="case-result-empty">{{ "EMPTY_CASES_HINT" | translate }}</td></tr>
                         <tr ng-if="cases.length" ng-repeat="case in cases track by case._id">
                             <td><a href="#/profile/{{case.ownerName}}">{{case.company}}</a></td>
-                            <td><a href="#/case/{{case._id}}">{{case.title}}</a></td>
+                            <td><a href="" ng-click="previewCase(case._id)">{{case.title}}</a></td>
                             <td><span style="font-size: 1.5em;" class="glyphicon glyphicon-time"></span></td>
                             <td>{{case.salary.payment | currency: '': 0}} {{case.salary.unit | translate}}</td>
                             <td>{{case.position}}</td>
