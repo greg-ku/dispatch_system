@@ -132,16 +132,17 @@ input[type="textarea"] {
         margin-bottom: 15px;
     }
 
-    .prev-left-header {
-        text-align: right;
-        padding-top: 7px;
-    }
-
-    .prev-workday {
+    .prev-left-header, .prev-workday {
         padding-top: 7px;
     }
 
     .desc-area {
         min-height: 200px;
+    }
+}
+
+@media (min-width: $screen-md-min) {
+    .prev-left-header {
+        text-align: right;
     }
 }
