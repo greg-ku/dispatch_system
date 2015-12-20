@@ -13,9 +13,8 @@ require! \browser-sync
 require! \merge-stream
 require! \karma
 
+bSync = browserSync.create!
 KarmaServer = karma.Server
-
-reload = browserSync.reload
 
 # environment
 env = gulpUtil.env.env || \dev
@@ -44,6 +43,7 @@ paths =
         src: \app/js/**/*.ls
         dest: \_public/js
         vendorDest: \_public/js
+        tmp: \tmp/app.js
     css:
         dir: \app/css
         src: \app/css/style.scss
@@ -54,13 +54,7 @@ paths =
 gulp.task \html, ->
     gulp.src paths.html.src
         .pipe gulp.dest paths.html.dest
-        .pipe reload { stream: true }
-
-gulp.task \template, ->
-    gulp.src paths.html.templateSrc
-        .pipe gulpAngularTemplatecache!
-        .pipe gulp.dest paths.tmp
-        .pipe reload { stream: true }
+gulp.task \html-watch, [\html], -> bSync.reload!
 
 gulp.task \js-vendor, ->
     gulpBowerFiles!
@@ -68,14 +62,28 @@ gulp.task \js-vendor, ->
         .pipe gulpConcat builtNames.vendorJs
         .pipe gulpIf env == \production, gulpUglify!
         .pipe gulp.dest paths.scripts.vendorDest
-        .pipe reload { stream: true }
 
-gulp.task \js-app, [\template], ->
-    gulp.src [paths.scripts.src, paths.html.tmp]
+gulp.task \template, ->
+    gulp.src paths.html.templateSrc
+        .pipe gulpAngularTemplatecache!
+        .pipe gulp.dest paths.tmp
+
+gulp.task \js-app, ->
+    gulp.src paths.scripts.src
         .pipe gulpLs { bare: true }
         .pipe gulpConcat builtNames.appJs
+        .pipe gulp.dest paths.tmp
+
+gulp.task \js-app-complete, [\template, \js-app], ->
+    gulp.src [paths.scripts.tmp, paths.html.tmp]
+        .pipe gulpConcat builtNames.appJs
         .pipe gulp.dest paths.scripts.dest
-        .pipe reload { stream: true }
+
+gulp.task \js-concat-only, ->
+    gulp.src [paths.scripts.tmp, paths.html.tmp]
+        .pipe gulpConcat builtNames.appJs
+        .pipe gulp.dest paths.scripts.dest
+gulp.task \js-concat-watch, [\js-concat-only], -> bSync.reload!
 
 gulp.task \css, ->
     # extra plugin css
@@ -96,7 +104,7 @@ gulp.task \css, ->
     mergeStream sassStream, cssStream
     .pipe gulpConcat builtNames.css
     .pipe gulp.dest paths.css.dest
-    .pipe reload { stream: true }
+    .pipe bSync.stream!
 
 gulp.task \icons, ->
     gulp.src paths.icons.src
@@ -105,19 +113,24 @@ gulp.task \icons, ->
 gulp.task \lang, ->
     gulp.src paths.lang.src
         .pipe gulp.dest paths.lang.dest
+gulp.task \lang-watch, [\lang], -> bSync.reload!
 
 gulp.task \test, [\build], (done) ->
     new KarmaServer { configFile: __dirname + \/karma.conf.js, singleRun: true }, done .start!
 
 # watch files for changes and reload
 gulp.task \watch, [\build], ->
-    browserSync do
+    bSync.init do
         browser: "google chrome"
         server:
             baseDir: paths.outputDir
-            routes:
-                '/api': 'test/mocks'
+            routes: { '/api': 'test/mocks' }
 
-    gulp.watch [paths.html.src, paths.html.templateSrc, paths.scripts.src, paths.css.src, paths.lang.src], [\build]
+    gulp.watch paths.css.src, [\css]
+    gulp.watch paths.lang.src, [\lang-watch]
+    gulp.watch paths.html.src, [\html-watch]
+    gulp.watch paths.html.templateSrc, [\template]
+    gulp.watch paths.scripts.src, [\js-app]
+    gulp.watch [paths.scripts.tmp, paths.html.tmp], [\js-concat-watch]
 
-gulp.task \build, [\html, \js-vendor, \js-app, \css, \icons, \lang]
+gulp.task \build, [\html, \js-vendor, \js-app-complete, \css, \icons, \lang]
