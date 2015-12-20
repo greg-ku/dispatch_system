@@ -1,5 +1,5 @@
-dispatchApp.controller \loginCtrl, [\$scope, \$http, \$modalInstance, \globalVars, \loginInfo, ($scope, $http, $modalInstance, globalVars, loginInfo) ->
-    $scope.close = !-> $modalInstance.dismiss(\cancel);
+dispatchApp.controller \loginCtrl, [\$scope, \$http, \$uibModalInstance, \globalVars, \loginInfo, ($scope, $http, $uibModalInstance, globalVars, loginInfo) ->
+    $scope.close = !-> $uibModalInstance.dismiss(\cancel);
 
     api = globalVars.API
 

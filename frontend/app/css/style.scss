@@ -138,6 +138,9 @@ input[type="textarea"] {
 
     .desc-area {
         min-height: 200px;
+        &.form-control {
+            height: auto;
+        }
     }
 }
 
