@@ -21,6 +21,14 @@ dispatchApp.controller \dispatchCtrl, [\$scope, \$uibModal, \$http, \$route, \gl
             templateUrl: \language_modal.html
             controller: \languageCtrl
 
+    $scope.openCasePrevModal = ->
+        $scope.modalInstance.close! if $scope.modalInstance
+        $scope.modalInstance = $uibModal.open do
+            animation: true
+            templateUrl: \case_prev_modal.html
+            controller: \casePrevCtrl
+            size: \lg
+
     $scope.logout = ->
         $http.post api.account.logout
         .then (responseObj) ->
@@ -50,6 +58,7 @@ dispatchApp.controller \dispatchCtrl, [\$scope, \$uibModal, \$http, \$route, \gl
     # routing url
     $scope.currentUrl = \home #default url
     $scope.$on \$routeChangeSuccess, ->
+        $scope.modalInstance.close! if $scope.modalInstance
         switch $route.current.action
         case \home then $scope.currentUrl = \home
         case \profile
@@ -57,4 +66,6 @@ dispatchApp.controller \dispatchCtrl, [\$scope, \$uibModal, \$http, \$route, \gl
                 $scope.currentUrl = \profile
             else
                 $scope.$broadcast \refreshProfile
+        case \previewCase
+            $scope.openCasePrevModal!
 ]

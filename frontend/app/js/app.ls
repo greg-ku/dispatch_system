@@ -22,6 +22,7 @@ dispatchApp.config [\$routeProvider, \$translateProvider, ($routeProvider, $tran
     # config url routes
     $routeProvider
     .when \/profile/:username, action: \profile
+    .when \/case/:id, action: \previewCase
     .otherwise redirectTo: '', action: \home
 ]
 
@@ -44,6 +45,7 @@ dispatchApp.factory \globalVars, ->
     vars.API.case =
         createCase: prefix + \/case
         getCases: prefix + \/case
+        getCase: prefix + \/case
 
     vars.PROMPT =
         NAME_USED: \NAME_USED

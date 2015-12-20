@@ -32,8 +32,8 @@ api.route \/
 api.route \/:id
 .get (req, res) ->
     # get specific case
-    Case.getCaseById req.session.loggedInUsername, (err, _case) ->
-        res.json if err then err else code: CODE.S_OK, case: _case
+    Case.getCaseById req.params.id, (err, _case) ->
+        res.json if err then err else code: CODE.S_OK, caseInfo: _case
 # .put mw.loggedinRequired, (req, res) ->
     # modify specific case
 

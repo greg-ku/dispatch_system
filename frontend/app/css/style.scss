@@ -125,3 +125,23 @@ input[type="textarea"] {
 .case-result-empty {
     text-align: center;
 }
+
+// preview case
+.case-prev-table {
+    [class*="col-"] {
+        margin-bottom: 15px;
+    }
+
+    .prev-left-header {
+        text-align: right;
+        padding-top: 7px;
+    }
+
+    .prev-workday {
+        padding-top: 7px;
+    }
+
+    .desc-area {
+        min-height: 200px;
+    }
+}
