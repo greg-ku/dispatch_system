@@ -18,13 +18,13 @@
             </div> <!-- navbar-header -->
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-if="!loggedIn"><a href="" ng-click="openRegisterModal();">{{ "REGISTER" | translate }}</a></li>
-                    <li ng-if="!loggedIn"><a href="" ng-click="openLoginModal();">{{ "LOGIN" | translate }}</a></li>
+                    <li ng-if="!loggedIn"><a href="" ng-click="openRegisterModal();" ng-bind="'REGISTER' | translate"></a></li>
+                    <li ng-if="!loggedIn"><a href="" ng-click="openLoginModal();" ng-bind="'LOGIN' | translate"></a></li>
                     <li ng-if="loggedIn">
                         <a href="#/profile/{{userInfo.username}}">
                             <span ng-if="!userInfo.profile.headshotUrl" class="glyphicon glyphicon-user"></span>
                             <img ng-if="userInfo.profile.headshotUrl" id="header-headshot-icon" ng-src="{{ userInfo.profile.headshotUrl || '//:0' }}">
-                            {{ userInfo.username }}
+                            <span ng-bind="userInfo.username"></span>
                         </a>
                     </li>
                     <li class="dropdown">
