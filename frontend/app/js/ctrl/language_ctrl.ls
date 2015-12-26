@@ -14,13 +14,7 @@ dispatchApp.controller \languageCtrl, [\$scope, \$translate, \$uibModalInstance,
     # set current language
     $scope.selectedLang = if window.localStorage[\lang] then window.localStorage[\lang] else $scope.langs[0].value
 
-    prefix = \/lang/
-    suffix = \.json
     $scope.changeLang = ->
-        $http.get prefix + $scope.selectedLang + suffix
-        .then (response) -> # success callback
-            $translate.use $scope.selectedLang
-            window.localStorage[\lang] = $scope.selectedLang # store language
-        , (response) -> # error callback
-            # error handle
+        $translate.use $scope.selectedLang
+        window.localStorage[\lang] = $scope.selectedLang # store language
 ]

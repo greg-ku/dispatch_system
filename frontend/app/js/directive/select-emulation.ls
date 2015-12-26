@@ -1,10 +1,12 @@
-angular.module \select-emulation-directive, [] .directive \selectEmulation, ->
+angular.module \select-emulation-directive, [] .directive \selectEmulation, [\$timeout, ($timeout) ->
     link = (scope, element, attrs) ->
         scope.select = (i, silent) ->
             scope.selected = scope.options[i]
             scope.selectedValue = scope.options[i].value
-            # do callback
-            scope.onChange! if !silent
+            $timeout ->
+                scope.$apply!
+                # do callback
+                scope.onChange! if !silent
 
         # init seelcted
         if scope.selectedValue
@@ -31,3 +33,4 @@ angular.module \select-emulation-directive, [] .directive \selectEmulation, ->
         'selectedValue': '='
         'onChange': '&'
     link: link
+]
