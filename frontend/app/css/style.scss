@@ -136,6 +136,12 @@ input[type="textarea"] {
         padding-top: 7px;
     }
 
+    @media (min-width: $screen-md-min) {
+        .prev-left-header {
+            text-align: right;
+        }
+    }
+
     .desc-area {
         min-height: 200px;
         &.form-control {
@@ -144,8 +150,3 @@ input[type="textarea"] {
     }
 }
 
-@media (min-width: $screen-md-min) {
-    .prev-left-header {
-        text-align: right;
-    }
-}
