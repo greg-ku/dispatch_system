@@ -53,6 +53,9 @@ api.post \/login, (req, res) ->
     Account.login req.body, (err, userInfo) ->
         return res.json err if err
         req.session.loggedInUsername = userInfo.username
+        req.sessionOptions.maxAge = if req.body.rememberMe
+            then 3 * 30 * 24 * 60 * 60 * 1000 # 3 months
+            else null
         res.json code: CODE.S_OK, userInfo: userInfo
 
 api.post \/logout, mw.loginRequired, (req, res) ->
