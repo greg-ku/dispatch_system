@@ -1,0 +1,438 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10,IE=10,IE=9,IE=8">
+    <META HTTP-EQUIV="Pragma" CONTENT="no_cache">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0">
+    <title>COM 智能社區</title>
+
+    <style type="text/css">
+
+        h1{ font-size: 1.6em; font-weight: normal; margin:0; }
+
+        ol, ul{
+            list-style: none;
+            margin:0;
+            padding:0;
+        }
+
+        blockquote, q{
+            quotes: none;
+        }
+
+        blockquote:before,blockquote:after,q:before,q:after {
+            content: none;
+        }
+
+        :focus {
+            outline: 0;
+        }
+
+        ins {
+            text-decoration: none;
+        }
+
+        del {
+            text-decoration: line-through;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        a, a:link, a:visited, a:hover, a:active {
+            outline: none;
+            text-decoration: none;
+            border: none;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        body{
+            font: normal normal normal 12px/1.5 'Helvetica Neue', Arial, Helvetica, 'Liberation Sans', FreeSans, sans-serif;
+            margin:30;
+            padding: 10px 20px;
+            background: #ebebeb;
+        }
+
+        #mainDiv #oTime div{
+            display: block;
+            background: #ebebeb;
+        }
+
+        #msgID{
+            display: none;
+        }
+
+        #mainDiv div{
+            background: #fff;
+            margin-bottom: 2px;
+            padding: 10px 20px;
+        }
+
+        #mainDiv h1{
+            display:inline-block;
+            font-size: 16px;
+            font-family: "Microsoft JhengHei";
+            color: #273f52;
+            font-weight: bold;
+        }
+
+        #mainDiv input{
+            border: none;
+            font-size: 16px;
+            font-family: "Microsoft JhengHei";
+            font-weight: bold;
+            float: right;
+            text-align: right;
+        }
+
+        .hide{
+            display: none;
+        }
+
+        .copy_right{
+            display: none;
+        }
+
+        #mainDiv .mobile_login_btn_box{
+            background: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #mainDiv .double_input{
+            width: 50px;
+            text-align: center;
+        }
+
+        .dbspan{
+            font-size: 16px;
+            font-family: "Microsoft JhengHei";
+            color: #273f52;
+            font-weight: bold;
+            float: right;
+        }
+
+
+        #mainDiv .dbspan input{
+            float: none;
+            text-align: center;
+        }
+
+        #mainDiv #confirm_btn{
+            background: #f9a825;
+            width: 100%;
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            margin: 0px;
+            padding: 0px;
+            z-index: 980;
+            height: 52px;
+            color: #fff;
+            text-align: center;
+        }
+
+        #mainDiv #confirm_btn:hover{
+            background: #de8a03;
+        }
+
+        #mainDiv #cancel_btn{
+            background: #17a9eb; /* Old browsers */
+            background: -moz-linear-gradient(left, #17a9eb 0%, #32cdaa 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(left, #17a9eb 0%,#32cdaa 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to right, #17a9eb 0%,#32cdaa 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            height: 52px;
+            color: #fff;
+            text-align: left;
+            padding: 0 15px;
+        }
+
+        #mainDiv #cancel_btn:hover{
+            color: #93f9ff;
+        }
+
+        #mainDiv #cancel_btn:hover{
+        }
+
+        .mlogin{
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body class="mobile_body"  OnLoad="timeIt()">
+<div id="mobile_WRAPPER">
+    <h1>為保障您的權益，請詳細閱讀本服務條款所有內容。並同意遵守以下所有服務條款之規範。</h1>
+
+<br>一、名詞定義
+
+<br>本APP服務契約條款(以下簡稱「本條款」)之名詞定義如下：
+
+<br>1. 「本公司」：係指   有無科技股份有限公司.。 
+
+<br>2. 「本APP」：係指本公司提供予使用人之軟體及服務、使用者購買之其他相關項目與服務，含所有免費或收費項目。 
+
+<br>3. 「使用者」：係指下載使用本APP或其服務，且以同意本規約之內容為前提，購買本公司所提供之APP及其他項目的使用人。
+
+<br>4. 「本APP」：係指為使用本公司提供之所有服務而下載的APP軟體及所有相關項目。
+
+<br>5. 「本項目」：係指本公司所提供之服務的所有相關項目，含所有免費或收費項目。
+
+    
+
+<br>二、認知與接受條款 
+
+<br>1. 本條款係指使用者在使用本公司所提供之APP軟體及相關項目時所應遵守之規則事項。 
+
+<br>2. 使用者如下載本APP，或在本條款公佈於本APP內或相關網站上後使用本APP，即表示使用者已經詳細審閱本條款的所有項目，並同意其內容。
+
+<br>若使用者為未成年人，必須取得法定代理人之同意始得使用本APP，下載或使用本APP均視為其法定代理人已同意遵守本條款之規範。
+
+<br>3. 使用者若購買本APP之收費服務及附加項目，即視為已同意遵守本條款之規範。 
+
+<br>4. 使用者使用本APP時，若有個別增修條款，使用者須遵守該增修條款之規範。增修條款不論其名義，應視為本條款之一部份。 
+
+<br>    
+
+<br>三、責任範圍 
+
+<br>1. 使用者使用本APP時，須使用本公司所指定之作業系統。 
+
+<br>2. 使用者瞭解在使用本APP時，須常時更新為最新版本，若不進行更新，有可能造成本APP無法使用。
+
+<br>3. 使用者須自行準備並負擔使用本APP時所需之所有設備條件及費用，含硬體、軟體、網際網路連線費用、電話費用等電信相關費用。 
+
+<br>4. 本公司與使用者的所有使用設備條件無任何關係，且不承擔一切相關責任。 
+
+<br>5. 使用者瞭解若刪除本APP或變更本APP所安裝之作業系統，有可能造成本APP之所有紀錄（含本項目）消失，使用者對此不得提出異議。 
+
+<br>6. 使用者若有以下所載之行為，依本公司之判斷，得立即中止使用者對本APP之使用。 
+
+<br>  i. 違反本條款或增修條款之時 
+
+<br>  ii. 其他本公司認為不適當之行為 
+
+<br>7. 有關本公司所提供之本APP及本項目的使用，使用者均負全責。使用者須負責因使用本APP及本項目所產生的一切費用。
+四、使用者之註冊登錄
+<br>
+本公司如對本APP另有"使用者於同意本條款之所有規範後，須進行註冊登錄方可使用本APP"之規定，使用者同意本條款則視為已瞭解並同意該項
+<br>
+規定。
+<br>
+    
+<br>
+五、個人資料保護
+<br>
+1. 關於個人資料之保護，依個人資料保護法及相關法律規定處理。 
+<br>
+2. 使用者同意本條款，則視為已同意本公司對其個人資料之合法使用。
+<br>
+    
+<br>
+六、免費／收費之附加項目
+<br>
+1. 使用者可享本APP中的附加服務，含免費項目及收費項目。 
+<br>
+2. 關於本項目的購買及使用，本公司得另行定制條款，使用者若購買本項目，則視為已同意遵守該條款。
+<br>
+3. 使用者於購買本項目時，如能依照本公司所指定之付款方式，並正常付款，使用者則可享該購買項目。若使用者為未成年人，必須取得法定代理
+<br>
+人之同意始得購買本項目，下載或使用本項目均視為其法定代理人已同意使用者購買。
+<br>
+4. 使用者於購買本項目時，須自行負擔其消費稅金或其他由此產生的相關費用。
+<br>
+5. 本公司保留有關本項目之條款的變更權利，不另行通知。 
+<br>
+6. 除相關法律規定之特別認可外，使用者不得對已購買的本項目等要求退費。
+<br>
+    
+<br>
+七、使用人責任與義務
+<br>
+使用者須遵守本APP相關之中華民國法令，不得有下列禁止行為：
+<br>
+1．害本公司、其他使用者、第三人之權利（智慧財產權、隱私權、肖像權、名譽、信用或其他權利）之行為。
+<br>
+2．損害或不利於其他使用者、第三人或本公司之行為。
+<br>
+3．謗中傷本公司或他人、助長對他人的歧視、詆毀本公司或他人信譽之行為。
+<br>
+4．違反法令或正常公共秩序及社會善良風氣之行為。
+<br>
+5．參與犯罪或間接造成犯罪之行為。
+<br>
+6．詐欺、造謠等違反事實之行為。
+<br>
+7．政治拉票或買票等選舉運動相關之行為。
+<br>
+8．未經本公司授權，將本APP使用於商業營利目的、或為第三人提供利益之行為。
+<br>
+9．妨害本公司或本APP之營運之行為。
+<br>
+10．損害本公司或本APP之信譽之行為。
+<br>
+11．利用本APP散播電腦病毒、木馬程式等行為。
+<br>
+12．惡意對本公司或其他伺服器或網路系統造成負擔之行為。
+<br>
+13．含違法性之行為。
+<br>
+14．對民族、宗教、人種、性別或年齡等含有人身攻擊、汙衊辱罵、歧視等行為。
+<br>
+15．勸誘／引誘／助長自殺、集體自殺、自殘、使用違法藥物等行為。
+<br>
+16．含有猥褻、暴力或引起他人過度不快之表現等行為。
+<br>
+17．違法賭博或勸誘參與違法賭博之行為。
+<br>
+18．未經本公司授權，以商品廣告、宣傳為目的公開用戶情報或散佈垃圾郵件等行為。
+<br>
+19．偽造身份、未經授權私自代理法人、謊稱與法人有合作關係等行為。
+<br>
+20．通過第三方外掛程式使用本APP等破壞公平性之行為。
+<br>
+21．其他本公司判斷為不適當之行為。
+<br>
+    
+<br>
+八、智慧財產權 
+<br>
+1. 
+<br>
+本APP以及構成本APP的所有電腦程式、軟體、資料庫、頁面設計、商標、標識以及其他所有資訊及內容（含本APP與本項目，以下簡稱「本內
+<br>
+容等」）等，其智慧財產權（含著作權｡商標權但不僅限於以上權利）及其他權利，均為本公司與本公司授權之權利人所有。
+<br>
+2. 使用者不得將本APP或本項目作為商業目的之使用。 
+<br>
+3. 本公司允許使用者使用本APP，不等同於使用者可不受限制地自由使用、買賣及處置本APP之所有權與智慧財產權。使用者並非享有獨家使用權
+<br>
+，且智慧財產權等權利仍歸屬於本公司。本公司販賣本項目予使用者，均意為同意其使用，不等同於將使用權或智慧財產權讓渡予使用者，亦不
+<br>
+等同於承認使用者具有前述權利。
+<br>
+4. 除本條款有明確記載之情事外，使用者不得以任何方式手段對本APP進行複製、傳送、讓渡、借貸、加工、更改與翻譯。 
+<br>
+5. 除本條款有明確記載之情事外，使用者不得將本APP挪作他用。 
+<br>
+6. 本公司並非授予任何單方使用者本APP或本項目之獨佔使用權。 
+<br>
+7. 不論何種原因，使用者若喪失使用資格，本公司授予使用者之本APP或本項目使用權也隨之失效。 
+<br>
+    
+<br>
+九、使用人間之糾紛 
+<br>
+1. 使用者間的糾紛及爭訟，本公司不負任何責任。 
+<br>
+2. 若使用者有違反本條款禁止行為之虞，本公司接獲通報後，保留應對與否以及箇中細項之權利。且如有上述情況，本公司不須履行向通報者說明
+<br>
+應對內容及結果之責任。 
+<br>
+    
+<br>
+十、本APP之變更權利 
+<br>
+1. 本公司可任意變更、追加或廢止本APP內容之全部或部份，不須另行通知使用者。 
+<br>
+2. 本公司對於因前項所產生的任何損害，都無須承擔任何損害賠償或補償責任。
+<br>
+    
+<br>
+十一、本APP之暫停或中斷 
+<br>
+1. 如有下列任何事由發生，本公司得暫停或停止本APP的全部或部份，不須履行對使用者進行事先通知之責任。
+<br>
+i. 本APP之運行設備須定期或緊急保養維修之時。 
+<br>
+ii. 因火災、停電等意外事故或戰爭、社會動亂、暴動、勞動爭議、天災、電腦病毒等其他肇事責任非歸咎於本公司之不可抗因素而造成本
+<br>
+APP無法繼續提供之時。
+<br>
+iii. 依法律、法條之規定，使本APP不得繼續提供之時。 
+<br>
+iv. 其他依本公司判斷認為必要之時。
+<br>
+2. 本公司可依本公司之判斷，對本APP的全部或部份進行單方面且任意之變更、追加、廢止、或對本APP進行完全終止，本公司不須履行對使用者
+<br>
+進行事先通知之責任。
+<br>
+3. 本公司對由上述第十一條第1、2項所造成之任何損害，均不承擔任何補償責任。 
+<br>
+    
+<br>
+十二、免責事項 
+<br>
+1. 本公司對本APP（含本APP之機能、本APP所提供之內容與本項目及其他）之確實性、準確性、安全性、有用性、道德性、適當性、適法性、著
+<br>
+作權之承認與否、特定目的之適合性、本APP於電腦或行動電話等作業系統上之正常動作與否，均不以保證。亦不保證本APP不會中斷・中止・
+<br>
+廢止、可隨時登錄、確保安全等。
+<br>
+2. 如因本APP之使用或不得使用，造成對使用者之損害（包含但不僅限於直接損害、間接損害、特殊損害、意外傷害、衍生損害、利益損失等）情
+<br>
+事，本公司不負任何責任。 
+<br>
+3. 前項所載之責任追究，不論本公司對上述損失發生之可能性事先認知與否，均不負任何責任。
+<br>
+4. 如本公司有故意或嚴重過失之情事，由司法機關依照消費者保護法判斷認定為本公司之不法行為，本公司可針對該當使用者之直接損害進行賠償
+<br>
+，但賠償額以該損害發生時消費者所支付之實際金額為上限。 
+<br>
+5. 使用者若因使用本APP，與第三人之間產生著作權或商標權等智慧財產權、名譽／信用／隱私、其他所有權利之侵害等情事，本公司不負任何介
+<br>
+入協助解決之責任，使用者應自行解決上述狀況，不得對本公司造成任何妨害。
+<br>
+    
+<br>
+十三、本條款之讓渡等 
+<br>
+1. 使用者除本公司事先以書面承諾之情況以外，不得將本條款授予之權利或義務以讓渡、移轉、擔保設定或其他方式轉授予第三人。 
+<br>
+2. 如有本公司將本APP事業讓渡予其他法人之情事，本條款之效力、由本條款所產生之權利與義務、 使用者之登錄事項與其他使用者資料，均可
+<br>
+隨本事業讓渡一併讓渡予該當法人。使用者同意本條款則視為已同意前述讓渡行為。本項所指之事業讓渡，除一般定義之事業讓渡外，可包含公
+<br>
+司拆分獨立或其他事業移轉等各種情事。 
+<br>
+    
+<br>
+十四、本條款之效力 
+<br>
+1. 本條款或增修條款之任何一部無效時，不影響其他條款之效力。
+<br>
+2. 本條款或增修條款之任何一部與使用者之關係取消或無效時，不影響本條款或增修條款與其他使用者之關係。 
+<br>
+<br>    
+
+<br>十五、本條款之變更權利
+1. 本公司可依本公司之判斷，任意變更本條款與增修條款。變更及增修內容，得以公開於本APP畫面等方式通知使用者。 
+<br>
+2. 使用者如於條款變更及增修後繼續使用本APP，則視為已瞭解並接受本條款及增修條款之全部內容。 
+<br>
+    
+<br>
+十六、準據法及管轄法院
+<br>
+本條款以中華民國法律為準據法。有關本條款所涉的一切爭訟，本公司與使用人雙方合意以台北地方法院為第一審管轄法院。 
+<br>
+    
+<br>
+本條款自以下日期開始生效。
+<br>
+生效日：105年01月04日
+</div>
+</body>
+</html>
